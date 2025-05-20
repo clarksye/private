@@ -1,4 +1,5 @@
 repeat task.wait() until game:IsLoaded()
+
 local HttpService = game:GetService("HttpService")
 local TeleportService = game:GetService("TeleportService")
 local Players = game:GetService("Players")
@@ -113,15 +114,8 @@ local function tryTeleport()
             )
         end)
         
-        if not success then
-            warn("Gagal teleport:", err)
-            -- Langsung coba server berikutnya
-            wait(2)
-            tryTeleport()
-        else
-            wait(5)
-            print("done")
-        end
+        wait(6)
+        tryTeleport()
     else
         warn("Tidak ada server tersedia")
     end
