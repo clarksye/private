@@ -120,6 +120,7 @@ local function tryTeleport()
             tryTeleport()
         else
             wait(5)
+            print("done")
         end
     else
         warn("Tidak ada server tersedia")
