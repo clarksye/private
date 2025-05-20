@@ -8,95 +8,78 @@ local Players = game:GetService("Players")
 local VERSION_LIMIT = 1233
 local PLACE_ID = game.PlaceId
 local DATA_FILE = "server_data.json"
-local LOCK_FILE = DATA_FILE..".lock"
+local LOCK_TIMEOUT = 10
 local RETRY_DELAY = 2
 
 -- Atomic file operations
 local function acquireLock()
     local start = os.time()
-    while os.time() - start < 10 do
-        if not isfile(LOCK_FILE) then
-            writefile(LOCK_FILE, "LOCK")
+    while os.time() - start < LOCK_TIMEOUT do
+        if not isfile(DATA_FILE..".lock") then
+            writefile(DATA_FILE..".lock", "LOCK")
             return true
         end
-        task.wait(0.5)
+        task.wait(0.1)
     end
     return false
 end
 
 local function releaseLock()
-    pcall(delfile, LOCK_FILE)
+    pcall(delfile, DATA_FILE..".lock")
 end
 
-local function atomicLoad()
-    if not acquireLock() then return nil end
-    local data = HttpService:JSONDecode(readfile(DATA_FILE))
-    releaseLock()
-    return data
+local function loadData()
+    if not isfile(DATA_FILE) then return nil end
+    return HttpService:JSONDecode(readfile(DATA_FILE))
 end
 
-local function atomicSave(data)
-    if not acquireLock() then return false end
+local function saveData(data)
     writefile(DATA_FILE, HttpService:JSONEncode(data))
-    releaseLock()
-    return true
 end
 
--- Inisialisasi data
-local function initData()
-    if not isfile(DATA_FILE) then
-        atomicSave({
-            _version = 0,
-            used = {},
-            notused = {},
-            servers = {}
-        })
-    end
-end
-
--- Helper functions
-local function isInTable(tbl, item)
-    for _, v in pairs(tbl) do
-        if v == item then
-            return true
-        end
-    end
-    return false
-end
-
--- Proses server saat ini dengan locking
-local function processCurrentServer()
-    local data = atomicLoad()
-    if not data then return end
+-- Transaction system
+local function atomicTransaction(operation)
+    if not acquireLock() then return nil end
     
-    local jobId = game.JobId
-    if not isInTable(data.used, jobId) then
-        table.insert(data.used, jobId)
-        
-        if game.PlaceVersion <= VERSION_LIMIT then
-            local versionKey = "version_"..game.PlaceVersion
-            data.servers[versionKey] = data.servers[versionKey] or {}
-            if not isInTable(data.servers[versionKey], jobId) then
+    local result
+    local data = loadData() or {used = {}, notused = {}, servers = {}}
+    local success, err = pcall(function()
+        result = operation(data)
+    end)
+    
+    if success and result ~= nil then
+        saveData(result)
+    end
+    
+    releaseLock()
+    return result and true or false
+end
+
+-- Server processing
+local function processCurrentServer()
+    atomicTransaction(function(data)
+        local jobId = game.JobId
+        if not table.find(data.used, jobId) then
+            table.insert(data.used, jobId)
+            
+            if game.PlaceVersion <= VERSION_LIMIT then
+                local versionKey = "version_"..game.PlaceVersion
+                data.servers[versionKey] = data.servers[versionKey] or {}
                 table.insert(data.servers[versionKey], jobId)
             end
         end
-        
-        data._version = (data._version or 0) + 1
-        atomicSave(data)
-    end
+        return data
+    end)
 end
 
--- Ambil server baru dengan atomic update
-local function fetchNewServers()
-    local data = atomicLoad()
-    if not data then return end
-    
+-- Server fetcher
+local function fetchServers()
     local cursor = ""
+    local newServers = {}
+    
     repeat
         local url = "https://games.roblox.com/v1/games/"..PLACE_ID.."/servers/Public?sortOrder=Asc&limit=100"
-        if cursor ~= "" then
-            url ..= "&cursor="..cursor
-        end
+        if cursor ~= "" then url ..= "&cursor="..cursor end
         
         local success, response = pcall(function()
             return HttpService:JSONDecode(game:HttpGet(url))
@@ -105,57 +88,58 @@ local function fetchNewServers()
         if not success then break end
         
         for _, server in pairs(response.data) do
-            local serverId = server.id
-            if not isInTable(data.used, serverId) and not isInTable(data.notused, serverId) then
-                table.insert(data.notused, serverId)
+            if not table.find(newServers, server.id) then
+                table.insert(newServers, server.id)
             end
         end
         
         cursor = response.nextPageCursor or ""
     until cursor == ""
     
-    data._version = (data._version or 0) + 1
-    atomicSave(data)
+    return newServers
 end
 
--- Teleport loop dengan atomic operation
-local function teleportLoop()
+-- Main hopper
+local function serverHopper()
     while true do
-        local data = atomicLoad()
-        if not data then
-            task.wait(RETRY_DELAY)
-            continue
-        end
-
-        if #data.notused == 0 then
-            fetchNewServers()
-            task.wait(RETRY_DELAY)
-            continue
-        end
-
-        local targetId = table.remove(data.notused, 1)
-        table.insert(data.used, targetId)
-        
-        -- Simpan perubahan sebelum teleport
-        data._version = (data._version or 0) + 1
-        if not atomicSave(data) then
-            task.wait(RETRY_DELAY)
-            continue
-        end
-
-        local success, err = pcall(function()
-            TeleportService:TeleportToPlaceInstance(
-                PLACE_ID,
-                targetId,
-                Players.LocalPlayer
-            )
+        local reservedServer
+        local success = atomicTransaction(function(data)
+            if #data.notused == 0 then
+                local newServers = fetchServers()
+                for _, id in ipairs(newServers) do
+                    if not table.find(data.used, id) then
+                        table.insert(data.notused, id)
+                    end
+                end
+            end
+            
+            if #data.notused > 0 then
+                reservedServer = table.remove(data.notused, 1)
+                table.insert(data.used, reservedServer)
+                return data
+            end
         end)
-
-        task.wait(6)
+        
+        if reservedServer then
+            local success, err = pcall(function()
+                TeleportService:TeleportToPlaceInstance(
+                    PLACE_ID,
+                    reservedServer,
+                    Players.LocalPlayer
+                )
+            end)
+            
+            task.wait(6)
+        else
+            task.wait(RETRY_DELAY)
+        end
     end
 end
 
--- Main execution
-initData()
+-- Initialization
+if not isfile(DATA_FILE) then
+    atomicTransaction(function(data) return data end)
+end
+
 processCurrentServer()
-teleportLoop()
+serverHopper()
