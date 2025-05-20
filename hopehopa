@@ -13,7 +13,7 @@ local function initData()
     if not isfile(DATA_FILE) then
         writefile(DATA_FILE, HttpService:JSONEncode({
             used = {},
-            notused = [],
+            notused = {},
             servers = {}
         }))
     end
