@@ -1,9 +1,9 @@
 repeat task.wait() until game:IsLoaded()
-
 local HttpService = game:GetService("HttpService")
 local TeleportService = game:GetService("TeleportService")
 local Players = game:GetService("Players")
 
+-- Config
 local VERSION_LIMIT = 1233
 local PLACE_ID = game.PlaceId
 local DATA_FILE = "server_data.json"
@@ -20,12 +20,17 @@ local function initData()
 end
 
 -- Helper functions
-local function loadData()
-    return HttpService:JSONDecode(readfile(DATA_FILE))
+local function safeLoad()
+    local success, data = pcall(function()
+        return HttpService:JSONDecode(readfile(DATA_FILE))
+    end)
+    return success and data or {used = {}, notused = {}, servers = {}}
 end
 
-local function saveData(data)
-    writefile(DATA_FILE, HttpService:JSONEncode(data))
+local function safeSave(data)
+    pcall(function()
+        writefile(DATA_FILE, HttpService:JSONEncode(data))
+    end)
 end
 
 local function isInTable(tbl, item)
@@ -39,7 +44,7 @@ end
 
 -- Proses server saat ini
 local function processCurrentServer()
-    local data = loadData()
+    local data = safeLoad()
     local jobId = game.JobId
     
     if not isInTable(data.used, jobId) then
@@ -47,21 +52,18 @@ local function processCurrentServer()
         
         if game.PlaceVersion <= VERSION_LIMIT then
             local versionKey = "version_"..game.PlaceVersion
-            if not data.servers[versionKey] then
-                data.servers[versionKey] = {}
-            end
+            data.servers[versionKey] = data.servers[versionKey] or {}
             table.insert(data.servers[versionKey], jobId)
         end
         
-        saveData(data)
+        safeSave(data)
     end
 end
 
 -- Ambil server baru dari API
 local function fetchNewServers()
-    local data = loadData()
+    local data = safeLoad()
     local cursor = ""
-    local fetched = 0
     
     repeat
         local url = "https://games.roblox.com/v1/games/"..PLACE_ID.."/servers/Public?sortOrder=Asc&limit=100"
@@ -76,33 +78,32 @@ local function fetchNewServers()
         if not success then break end
         
         for _, server in pairs(response.data) do
-            if not isInTable(data.used, server.id) and not isInTable(data.notused, server.id) then
-                table.insert(data.notused, server.id)
-                fetched += 1
+            local serverId = server.id
+            if not isInTable(data.used, serverId) and not isInTable(data.notused, serverId) then
+                table.insert(data.notused, serverId)
             end
         end
         
         cursor = response.nextPageCursor or ""
-    until cursor == "" or fetched >= 1000
+    until cursor == ""
     
-    saveData(data)
+    safeSave(data)
 end
 
--- Coba teleport ke server berikutnya
+-- Teleport ke server berikutnya
 local function tryTeleport()
-    local data = loadData()
+    local data = safeLoad()
     
     if #data.notused == 0 then
         fetchNewServers()
-        data = loadData()
+        data = safeLoad()
     end
-    
-    while #data.notused > 0 do
-        local targetId = table.remove(data.notused, 1)
-        
-        -- Pindahkan ke used terlebih dahulu
+
+    if #data.notused > 0 then
+        local targetId = data.notused[1]
+        table.remove(data.notused, 1)
         table.insert(data.used, targetId)
-        saveData(data)
+        safeSave(data)
         
         local success, err = pcall(function()
             TeleportService:TeleportToPlaceInstance(
@@ -113,17 +114,16 @@ local function tryTeleport()
         end)
         
         if not success then
-            warn("Gagal teleport ke", targetId, "Error:", err)
-            -- Coba server berikutnya
-            data = loadData()
+            warn("Gagal teleport:", err)
+            -- Langsung coba server berikutnya
+            wait(2)
+            tryTeleport()
         else
-            wait(5)  -- Beri waktu untuk teleport
-            return
+            wait(5)
         end
+    else
+        warn("Tidak ada server tersedia")
     end
-    
-    warn("Tidak ada server tersedia, melakukan fetch ulang...")
-    fetchNewServers()
 end
 
 -- Main execution
