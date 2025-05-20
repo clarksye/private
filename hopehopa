@@ -1,4 +1,9 @@
 repeat task.wait() until game:IsLoaded()
+local player = game:GetService("Players").LocalPlayer
+if not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then
+    player.CharacterAdded:Wait()
+    repeat task.wait() until player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+end
 
 local HttpService = game:GetService("HttpService")
 local TeleportService = game:GetService("TeleportService")
