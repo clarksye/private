@@ -1,13 +1,13 @@
 repeat task.wait() until game:IsLoaded()
 
+-- Delay acak 0-500ms untuk distribusi request
+task.wait(math.random(0, 500)/1000)
+
 local player = game:GetService("Players").LocalPlayer
 if not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then
     player.CharacterAdded:Wait()
     repeat task.wait() until player.Character and player.Character:FindFirstChild("HumanoidRootPart")
 end
-
--- Delay acak antara 0 - 500 ms (0 - 0.5 detik)
-task.wait(math.random(0, 500) / 1000)
 
 local HttpService = game:GetService("HttpService")
 local TeleportService = game:GetService("TeleportService")
