@@ -1,0 +1,130 @@
+local HttpService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+
+local VERSION_LIMIT = 1233
+local PLACE_ID = game.PlaceId
+local DATA_FILE = "server_data.json"
+
+-- Inisialisasi data
+local function initData()
+    if not isfile(DATA_FILE) then
+        writefile(DATA_FILE, HttpService:JSONEncode({
+            used = {},
+            notused = [],
+            servers = {}
+        }))
+    end
+end
+
+-- Helper functions
+local function loadData()
+    return HttpService:JSONDecode(readfile(DATA_FILE))
+end
+
+local function saveData(data)
+    writefile(DATA_FILE, HttpService:JSONEncode(data))
+end
+
+local function isInTable(tbl, item)
+    for _, v in pairs(tbl) do
+        if v == item then
+            return true
+        end
+    end
+    return false
+end
+
+-- Proses server saat ini
+local function processCurrentServer()
+    local data = loadData()
+    local jobId = game.JobId
+    
+    if not isInTable(data.used, jobId) then
+        table.insert(data.used, jobId)
+        
+        if game.PlaceVersion <= VERSION_LIMIT then
+            local versionKey = "version_"..game.PlaceVersion
+            if not data.servers[versionKey] then
+                data.servers[versionKey] = {}
+            end
+            table.insert(data.servers[versionKey], jobId)
+        end
+        
+        saveData(data)
+    end
+end
+
+-- Ambil server baru dari API
+local function fetchNewServers()
+    local data = loadData()
+    local cursor = ""
+    local fetched = 0
+    
+    repeat
+        local url = "https://games.roblox.com/v1/games/"..PLACE_ID.."/servers/Public?sortOrder=Asc&limit=100"
+        if cursor ~= "" then
+            url ..= "&cursor="..cursor
+        end
+        
+        local success, response = pcall(function()
+            return HttpService:JSONDecode(game:HttpGet(url))
+        end)
+        
+        if not success then break end
+        
+        for _, server in pairs(response.data) do
+            if not isInTable(data.used, server.id) and not isInTable(data.notused, server.id) then
+                table.insert(data.notused, server.id)
+                fetched += 1
+            end
+        end
+        
+        cursor = response.nextPageCursor or ""
+    until cursor == "" or fetched >= 1000
+    
+    saveData(data)
+end
+
+-- Coba teleport ke server berikutnya
+local function tryTeleport()
+    local data = loadData()
+    
+    if #data.notused == 0 then
+        fetchNewServers()
+        data = loadData()
+    end
+    
+    while #data.notused > 0 do
+        local targetId = table.remove(data.notused, 1)
+        
+        -- Pindahkan ke used terlebih dahulu
+        table.insert(data.used, targetId)
+        saveData(data)
+        
+        local success, err = pcall(function()
+            TeleportService:TeleportToPlaceInstance(
+                PLACE_ID,
+                targetId,
+                Players.LocalPlayer
+            )
+        end)
+        
+        if not success then
+            warn("Gagal teleport ke", targetId, "Error:", err)
+            -- Coba server berikutnya
+            data = loadData()
+        else
+            wait(5)  -- Beri waktu untuk teleport
+            return
+        end
+    end
+    
+    warn("Tidak ada server tersedia, melakukan fetch ulang...")
+    fetchNewServers()
+end
+
+-- Main execution
+initData()
+processCurrentServer()
+tryTeleport()
