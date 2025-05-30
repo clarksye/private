@@ -1,0 +1,22 @@
+local RS = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+
+task.spawn(function()
+	while true do
+		for _, player in ipairs(Players:GetPlayers()) do
+			local folder = workspace:FindFirstChild(player.Name)
+			if folder then
+				for _, obj in ipairs(folder:GetChildren()) do
+					if typeof(obj) == "Instance" and obj.Name:match("%[.-%] %[.-%]") then
+						task.spawn(function()
+							pcall(function()
+								RS.GameEvents.SellPet_RE:FireServer(obj)
+							end)
+						end)
+					end
+				end
+			end
+		end
+		task.wait() -- tunggu 1 frame
+	end
+end)
