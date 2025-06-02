@@ -15,7 +15,7 @@ getgenv().Config = {
     },
     ["dont Buy Seed low Price"] = {
         ["Enabled"] = true, 
-        ["Money"] = 3000,
+        ["Money"] = 3999,
     },
     ["Auto Delete Seed Planted"] = {
         ["Enabled"] = false,
@@ -35,7 +35,7 @@ getgenv().Config = {
     },
     ["Gear"]  = {
         ["Buy Gear"] = {
-            ["Enabled"] = true,
+            ["Enabled"] = false,
             ["Select Gear"] = {
                 ["Basic Sprinkler"] = true, 
                 ["Advanced Sprinkler"] = true,
