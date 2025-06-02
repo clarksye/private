@@ -6,7 +6,7 @@ getgenv().Config = {
             ["Night Egg"] = true,
             ["Bug Egg"] = true,
             ["Mythical Egg"] = true,
-            ["Legendary Egg"] = true,
+            ["Legendary Egg"] = false,
         }
     },
     ["Delete Pet"] = {
