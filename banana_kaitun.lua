@@ -18,11 +18,11 @@ getgenv().Config = {
         ["Money"] = 3999,
     },
     ["Auto Delete Seed Planted"] = {
-        ["Enabled"] = false,
+        ["Enabled"] = true,
         ["Auto Delete Seed Low Price"] = true,
         ["Slot"] = 500,
         ["Name Seed Delete"] = {
-            "",
+            "Strawberry", "Blueberry", "Tomato"
         }
     },
     ["Dont collect during weather events"] = {
