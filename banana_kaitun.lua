@@ -30,7 +30,7 @@ getgenv().Config = {
         ["Weather"] = {
             ["Rain"] = false,
             ["Frost"] = false,
-            ["Thunderstorm"] = false,
+            ["Thunderstorm"] = true,
         }
     },
     ["Gear"]  = {
