@@ -1,5 +1,5 @@
 repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
-getgenv().Key = ""
+getgenv().Key = "0c35250991e58f6cd19192bc"
 getgenv().Config = {
     ["Buy Egg"] = {
         ["Select Egg"] = {
