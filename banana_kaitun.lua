@@ -11,7 +11,7 @@ getgenv().Config = {
     },
     ["Delete Pet"] = {
         ["Enabled"] = false,
-        ["Pet Dont Delete"] = {""}
+        ["Pet Dont Delete"] = {"Raccoon", "Dragon Fly", "Queen Bee"}
     },
     ["dont Buy Seed low Price"] = {
         ["Enabled"] = true, 
@@ -22,7 +22,7 @@ getgenv().Config = {
         ["Auto Delete Seed Low Price"] = false,
         ["Slot"] = 50,
         ["Name Seed Delete"] = {
-            "Strawberry", "Blueberry", "Tomato", "Apple",
+            "Strawberry", "Blueberry", "Tomato", "Corn", "Apple"
         }
     },
     ["Dont collect during weather events"] = {
@@ -70,3 +70,50 @@ getgenv().Config = {
     }
 }
 loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitink/refs/heads/main/KaitunGAG.lua"))()
+
+local cachedPlayerData = nil
+
+-- HOOK PlayerData
+task.spawn(function()
+    local DataService = require(game:GetService("ReplicatedStorage").Modules.DataService)
+    if typeof(DataService.GetData) == "function" then
+        local oldGetData = DataService.GetData
+
+        DataService.GetData = function(self, ...)
+            local data = oldGetData(self, ...)
+            cachedPlayerData = data
+            return data
+        end
+    else
+        warn("DataService.GetData bukan fungsi atau belum tersedia.")
+    end
+end)
+
+spawn(function()
+    wait(5)
+    local function buyEventShopItems()
+        local data = cachedPlayerData
+        if not data or not data.EventShopStock or not data.EventShopStock.Stocks then return end
+
+        local allHoneyShopItems = {
+            "Flower Seed Pack",
+            "Hive Fruit Seed",
+            "Nectarine Seed",
+            "Bee Egg"
+        }
+
+        local remote = game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):FindFirstChild("BuyEventShopStock")
+
+        for _, itemName in ipairs(allHoneyShopItems) do
+            local stockData = data.EventShopStock.Stocks[itemName]
+            if stockData and stockData.Stock > 0 then
+                remote:FireServer(itemName)
+                task.wait()
+            end
+        end
+    end
+
+    while task.wait(1) do
+        buyEventShopItems()
+    end
+end)
