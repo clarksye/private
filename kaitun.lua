@@ -1,6 +1,7 @@
 getgenv().Config = {
     ["Buy Seeds"] = {
         ["Enabled"] = true,
+        ["Treshold"] = 10,
         ["Item"] = {
             ["Carrot"] = true,
             ["Strawberry"] = true,
@@ -25,7 +26,8 @@ getgenv().Config = {
         }
     },
     ["Buy Tools"] = {
-        ["Enabled"] = false,
+        ["Enabled"] = true,
+        ["Treshold"] = 10000000, -- if enable, will only buy if shekless more than 10.000.000
         ["Item"] = {
             ["Watering Can"] = true,
             ["Trowel"] = true,
@@ -35,11 +37,12 @@ getgenv().Config = {
             ["Godly Sprinkler"] = true,
             ["Lightning Rod"] = true,
             ["Master Sprinkler"] = true,
-            ["Favorite Tool"] = true
+            ["Favorite Tool"] = false
         }
     },
     ["Buy Eggs"] = {
         ["Enabled"] = true,
+        ["Treshold"] = 10000000,
         ["Item"] = {
             ["Common Egg"] = false,
             ["Uncommon Egg"] = false,
@@ -68,6 +71,12 @@ getgenv().Config = {
         ["If Money More Than"] = 1000000, -- If we have money more than this, will not buying from Seed Name List
         ["Seed Name"] = {
             "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Carrot"
+        }
+    },
+    ["Dont Plant Inventory Seed"] = {
+        ["Enabled"] = true,
+        ["Seed Name"] = {
+            "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Carrot", "Rose"
         }
     },
     ["Delete Planted Seed"] = {
