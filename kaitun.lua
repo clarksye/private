@@ -91,8 +91,9 @@ getgenv().Config = {
     ["Delete Planted Seed"] = {
         ["Enabled"] = true,
         ["Slot"] = {
-            {slot = 200, min = 0},        -- if money 0 then using this slot
-            {slot = 100, min = 1000000},  -- if money 1.000.000 then using this slot
+            {slot = 300, min = 0},        -- if money 0 then using this slot
+            {slot = 200, min = 1000000},  -- if money 1.000.000 then using this slot
+            {slot = 100, min = 5000000},  -- if money 1.000.000 then using this slot
             {slot = 50,  min = 10000000}, -- if money 10.000.000 then using this slot
         },
         ["Name Seed Delete"] = {
