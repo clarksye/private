@@ -30,7 +30,7 @@ getgenv().Config = {
         ["Treshold"] = 10000000, -- if enable, will only buy if shekless more than 10.000.000
         ["Item"] = {
             ["Watering Can"] = true,
-            ["Trowel"] = false,
+            ["Trowel"] = true,
             ["Recall Wrench"] = true,
             ["Basic Sprinkler"] = true,
             ["Advanced Sprinkler"] = true,
@@ -67,6 +67,15 @@ getgenv().Config = {
             ["Honey Walkway"] = false
         }
     },
+    ["Dont Collect On Weather"] = {
+        ["Enabled"] = true,
+        ["Weather"] = {
+            ["RainEvent"] = false, -- Rain
+            ["FrostEvent"] = false, -- Frost
+            ["Thunderstorm"] = true, -- Thunderstorm
+            ["BeeSwarm"] = false -- Bee
+        }
+    },
     ["Dont Buy Seed"] = {
         ["If Money More Than"] = 1000000, -- If we have money more than this, will not buying from Seed Name List
         ["Seed Name"] = {
@@ -74,7 +83,7 @@ getgenv().Config = {
         }
     },
     ["Dont Plant Inventory Seed"] = {
-        ["Enabled"] = true,
+        ["Enabled"] = false,
         ["Seed Name"] = {
             "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Carrot", "Rose"
         }
