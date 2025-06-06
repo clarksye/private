@@ -67,6 +67,21 @@ getgenv().Config = {
             ["Honey Walkway"] = false
         }
     },
+    ["Use Sprinklers"] = {
+        ["Enabled"] = true,
+        ["Sprinkler"] = {
+            ["Basic Sprinkler"] = true,
+            ["Advanced Sprinkler"] = true,
+            ["Godly Sprinkler"] = true,
+            ["Master Sprinkler"] = true,
+        },
+        ["Stack"] = { -- When stack true, will only place after have "all the true (enabled)" so will stake
+            ["Basic Sprinkler"] = false,
+            ["Advanced Sprinkler"] = false,
+            ["Godly Sprinkler"] = false,
+            ["Master Sprinkler"] = false,
+        }
+    },
     ["Dont Collect On Weather"] = {
         ["Enabled"] = true,
         ["Weather"] = {
@@ -93,8 +108,8 @@ getgenv().Config = {
         ["Slot"] = {
             {slot = 300, min = 0},        -- if money 0 then using this slot
             {slot = 200, min = 1000000},  -- if money 1.000.000 then using this slot
-            {slot = 100, min = 5000000},  -- if money 5.000.000 then using this slot
-            {slot = 50,  min = 10000000}, -- if money 10.000.000 then using this slot
+            {slot = 100, min = 10000000},  -- if money 10.000.000 then using this slot
+            {slot = 50,  min = 20000000}, -- if money 20.000.000 then using this slot
         },
         ["Name Seed Delete"] = {
             "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Rose", "Foxglove"
