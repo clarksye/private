@@ -108,7 +108,7 @@ getgenv().Config = {
     ["Dont Buy Seed"] = {
         ["If Money More Than"] = 1000000, -- If we have money more than this, will not buying from Seed Name List
         ["Seed Name"] = {
-            "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Carrot"
+            "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Carrot", "Bamboo"
         }
     },
     ["Dont Plant Inventory Seed"] = {
@@ -127,7 +127,7 @@ getgenv().Config = {
             {slot = 50,  min = 100000000}, -- if money 100.000.000 then using this slot
         },
         ["Name Seed Delete"] = {
-            "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Rose", "Foxglove", "Orange Tulip"
+            "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Rose", "Foxglove", "Orange Tulip", "Bamboo"
         }
     }
 }
