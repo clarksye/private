@@ -1,7 +1,7 @@
 getgenv().Config = {
     ["Buy Seeds"] = {
         ["Enabled"] = true,
-        ["Treshold"] = 10,
+        ["Threshold"] = 10,
         ["Item"] = {
             ["Carrot"] = true,
             ["Strawberry"] = true,
@@ -27,7 +27,7 @@ getgenv().Config = {
     },
     ["Buy Tools"] = {
         ["Enabled"] = true,
-        ["Treshold"] = 10000000, -- if enable, will only buy if shekless more than 10.000.000
+        ["Threshold"] = 10000000, -- if enable, will only buy if shekless more than 10.000.000
         ["Item"] = {
             ["Watering Can"] = true,
             ["Trowel"] = true,
@@ -42,7 +42,7 @@ getgenv().Config = {
     },
     ["Buy Eggs"] = {
         ["Enabled"] = true,
-        ["Treshold"] = 10000000,
+        ["Threshold"] = 10000000,
         ["Item"] = {
             ["Common Egg"] = false,
             ["Uncommon Egg"] = false,
@@ -71,7 +71,7 @@ getgenv().Config = {
         ["Enabled"] = true,
         ["Weather"] = {
             ["RainEvent"] = false, -- Rain
-            ["FrostEvent"] = false, -- Frost
+            ["FrostEvent"] = true, -- Frost
             ["Thunderstorm"] = true, -- Thunderstorm
             ["BeeSwarm"] = false -- Bee
         }
@@ -93,7 +93,7 @@ getgenv().Config = {
         ["Slot"] = {
             {slot = 300, min = 0},        -- if money 0 then using this slot
             {slot = 200, min = 1000000},  -- if money 1.000.000 then using this slot
-            {slot = 100, min = 5000000},  -- if money 1.000.000 then using this slot
+            {slot = 100, min = 5000000},  -- if money 5.000.000 then using this slot
             {slot = 50,  min = 10000000}, -- if money 10.000.000 then using this slot
         },
         ["Name Seed Delete"] = {
