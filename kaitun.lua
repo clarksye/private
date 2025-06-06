@@ -94,7 +94,7 @@ getgenv().Config = {
     ["Dont Buy Seed"] = {
         ["If Money More Than"] = 1000000, -- If we have money more than this, will not buying from Seed Name List
         ["Seed Name"] = {
-            "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Carrot"
+            "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Carrot", "Orange Tulip"
         }
     },
     ["Dont Plant Inventory Seed"] = {
