@@ -82,6 +82,20 @@ getgenv().Config = {
             ["Master Sprinkler"] = false,
         }
     },
+    ["Use Pets"] = {
+        ["Enabled"] = true,
+        ["Pet Name"] = { -- If dont have pet with name then will use by rarity
+            "Golden Lab"
+        },
+        ["Pet Rarity"] = { -- Will choose use pet by rariry, from common..divine if this all active
+            {["Common"] = true},
+            {["Uncommon"] = true},
+            {["Rare"] = true},
+            {["Legendary"] = true},
+            {["Mythical"] = true},
+            {["Divine"] = true}
+        }
+    },
     ["Dont Collect On Weather"] = {
         ["Enabled"] = true,
         ["Weather"] = {
@@ -94,7 +108,7 @@ getgenv().Config = {
     ["Dont Buy Seed"] = {
         ["If Money More Than"] = 1000000, -- If we have money more than this, will not buying from Seed Name List
         ["Seed Name"] = {
-            "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Carrot", "Orange Tulip"
+            "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Carrot"
         }
     },
     ["Dont Plant Inventory Seed"] = {
