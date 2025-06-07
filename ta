@@ -36,11 +36,7 @@ local success, err = pcall(function()
     local farm = getFarm()
     if not farm then return end
 
-    local isGet = false
-	local isHasEgg = false
-
-	-- Daftar tipe hewan yang ingin diproses
-	local validPetTypes = {
+	local targetPetType = {
 		["Disco Bee"] = true,
 		["Queen Bee"] = true,
 		["Dragonfly"] = true,
@@ -50,29 +46,35 @@ local success, err = pcall(function()
 		["Butterfly"] = false,
 	}
 
-	for i, v in pairs(cachedPlayerData.SavedObjects) do
-		isHasEgg = true
-		if not v or not v.Data or not v.Data.Type then continue end
+	while task.wait(5) do
+		local isGet = false
+		local isHasEgg = false
+		
+        for i, v in pairs(cachedPlayerData.SavedObjects) do
+            isHasEgg = true
+            if not v or not v.Data or not v.Data.Type then continue end
 
-		print(v.Data.Type.."\n\n")
+            if targetPetType[v.Data.Type] then
+                for _, egg in ipairs(farm:WaitForChild("Important").Objects_Physical:GetChildren()) do
+                    if egg.Name ~= "PetEgg" then continue end
+                    if egg:GetAttribute("OBJECT_UUID") == i then
+                        local args = {"HatchPet", egg}
+                        game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("PetEggService"):FireServer(unpack(args))
+                        task.wait(3)
+                        isGet = true
+                    end
+                end
+            end
+        end
 
-		if validPetTypes[v.Data.Type] then
-			for _, egg in ipairs(farm:WaitForChild("Important").Objects_Physical:GetChildren()) do
-				if egg.Name ~= "PetEgg" then continue end
-				if egg:GetAttribute("OBJECT_UUID") == i then
-					local args = {"HatchPet", egg}
-					game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("PetEggService"):FireServer(unpack(args))
-					task.wait(0.1)
-					isGet = true
-				end
-			end
-		end
-	end
+        if not isGet and isHasEgg then
+            task.wait(3)
+            TeleportService:Teleport(game.PlaceId, Player)
 
-    if not isGet and isHasEgg then
-        print("not")
-        task.wait(3) -- delay opsional sebelum rejoin
-        TeleportService:Teleport(game.PlaceId, Player)
+            while task.wait(10) do
+                TeleportService:Teleport(game.PlaceId, Player)
+            end
+        end
     end
 
 end)
