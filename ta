@@ -53,7 +53,7 @@ local success, err = pcall(function()
 	local isGet = false
     local isHasEgg = false
     
-    while task.wait(1) {
+    while task.wait(1) do
         for i, v in pairs(cachedPlayerData.SavedObjects) do
             isHasEgg = true
             if not v or not v.Data or not v.Data.Type then continue end
@@ -79,10 +79,10 @@ local success, err = pcall(function()
                 TeleportService:Teleport(game.PlaceId, Player)
             end
         end
-    }
+    end
 
 end)
 
 if not success then 
-	warn(err)
+    warn(err)
 end
