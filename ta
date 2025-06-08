@@ -53,31 +53,33 @@ local success, err = pcall(function()
 	local isGet = false
     local isHasEgg = false
     
-    for i, v in pairs(cachedPlayerData.SavedObjects) do
-        isHasEgg = true
-        if not v or not v.Data or not v.Data.Type then continue end
+    while task.wait(1) {
+        for i, v in pairs(cachedPlayerData.SavedObjects) do
+            isHasEgg = true
+            if not v or not v.Data or not v.Data.Type then continue end
 
-        if targetPetType[v.Data.Type] then
-            for _, egg in ipairs(farm:WaitForChild("Important").Objects_Physical:GetChildren()) do
-                if egg.Name ~= "PetEgg" then continue end
-                if egg:GetAttribute("OBJECT_UUID") == i then
-                    local args = {"HatchPet", egg}
-                    game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("PetEggService"):FireServer(unpack(args))
-                    task.wait(3)
-                    isGet = true
+            if targetPetType[v.Data.Type] then
+                for _, egg in ipairs(farm:WaitForChild("Important").Objects_Physical:GetChildren()) do
+                    if egg.Name ~= "PetEgg" then continue end
+                    if egg:GetAttribute("OBJECT_UUID") == i then
+                        local args = {"HatchPet", egg}
+                        game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("PetEggService"):FireServer(unpack(args))
+                        task.wait(3)
+                        isGet = true
+                    end
                 end
             end
         end
-    end
 
-    if not isGet and isHasEgg then
-        task.wait(3)
-        TeleportService:Teleport(game.PlaceId, Player)
-
-        while task.wait(10) do
+        if not isGet and isHasEgg then
+            task.wait(3)
             TeleportService:Teleport(game.PlaceId, Player)
+
+            while task.wait(10) do
+                TeleportService:Teleport(game.PlaceId, Player)
+            end
         end
-    end
+    }
 
 end)
 
