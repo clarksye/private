@@ -36,7 +36,7 @@ local success, err = pcall(function()
     local farm = getFarm()
     if not farm then return end
 
-	local targetPetType = {
+    local targetPetType = {
 		["Disco Bee"] = true,
 		["Queen Bee"] = true,
 		["Dragonfly"] = true,
@@ -45,6 +45,10 @@ local success, err = pcall(function()
 		["Red Fox"] = true,
 		["Butterfly"] = false,
 	}
+
+    for uuid, pet in pairs(cachedPlayerData.PetsData.PetInventory.Data) do
+        if targetPetTypes[pet.PetType] then return end
+    end
 
 	local isGet = false
     local isHasEgg = false
