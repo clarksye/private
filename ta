@@ -47,7 +47,7 @@ local success, err = pcall(function()
 	}
 
     for uuid, pet in pairs(cachedPlayerData.PetsData.PetInventory.Data) do
-        if targetPetTypes[pet.PetType] then return end
+        if targetPetType[pet.PetType] then return end
     end
 
 	local isGet = false
