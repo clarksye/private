@@ -19,6 +19,7 @@ local function getFarm()
 end
 
 local success, err = pcall(function()
+    task.wait(3)
     local DataService = require(game:GetService("ReplicatedStorage").Modules.DataService)
     if typeof(DataService.GetData) == "function" then
         local oldGetData = DataService.GetData
@@ -31,7 +32,7 @@ local success, err = pcall(function()
     else
         warn("DataService.GetData bukan fungsi atau belum tersedia.")
     end
-    task.wait(3)
+    task.wait(1)
 
     local farm = getFarm()
     if not farm then return end
@@ -46,6 +47,7 @@ local success, err = pcall(function()
 		["Butterfly"] = false,
 	}
 
+    -- exit if already have
     for uuid, pet in pairs(cachedPlayerData.PetsData.PetInventory.Data) do
         if pet and pet.PetType and targetPetType[pet.PetType] then return end
     end
