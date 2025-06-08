@@ -46,9 +46,9 @@ local success, err = pcall(function()
 		["Butterfly"] = false,
 	}
 
-    -- for uuid, pet in pairs(cachedPlayerData.PetsData.PetInventory.Data) do
-    --     if pet and pet.PetType and targetPetType[pet.PetType] then return end
-    -- end
+    for uuid, pet in pairs(cachedPlayerData.PetsData.PetInventory.Data) do
+        if pet and pet.PetType and targetPetType[pet.PetType] then return end
+    end
 
 	local isGet = false
     local isHasEgg = false
