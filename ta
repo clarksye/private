@@ -75,7 +75,7 @@ local success, err = pcall(function()
             end
         end
 
-        if #eggs > 0 and #ready > 0 and not isGet then
+        if eggs > 0 and ready > 0 and not isGet then
             task.wait(3)
             TeleportService:Teleport(game.PlaceId, Player)
 
