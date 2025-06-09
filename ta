@@ -51,7 +51,7 @@ local success, err = pcall(function()
     --     if pet and pet.PetType and targetPetType[pet.PetType] then return end
     -- end
     
-    while task.wait(1) do
+    while task.wait(3) do
         local eggs = 0
         local ready = 0
         local isGet = false
