@@ -22,7 +22,8 @@ getgenv().Config = {
             ["Mushroom"] = true,
             ["Pepper"] = true,
             ["Cacao"] = true,
-            ["Beanstalk"] = true
+            ["Beanstalk"] = true,
+            ["Ember Lily"] = true,
         }
     },
     ["Buy Tools"] = {
