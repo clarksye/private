@@ -24,6 +24,7 @@ getgenv().Config = {
             ["Cacao"] = true,
             ["Beanstalk"] = true,
             ["Ember Lily"] = true,
+            ["Sugar Apple"] = true
         }
     },
     ["Buy Tools"] = {
@@ -38,7 +39,10 @@ getgenv().Config = {
             ["Godly Sprinkler"] = true,
             ["Lightning Rod"] = true,
             ["Master Sprinkler"] = true,
-            ["Favorite Tool"] = false
+            ["Cleaning Spray"] = true,
+            ["Favorite Tool"] = false,
+            ["Harvest Tool"] = false,
+            ["Friendship Pot"] = true
         }
     },
     ["Buy Eggs"] = {
@@ -48,8 +52,8 @@ getgenv().Config = {
             ["Common Egg"] = false,
             ["Uncommon Egg"] = false,
             ["Rare Egg"] = false,
-            ["Legendary Egg"] = false,
-            ["Mythical Egg"] = false,
+            ["Legendary Egg"] = true,
+            ["Mythical Egg"] = true,
             ["Bug Egg"] = true
         }
     },
@@ -109,7 +113,7 @@ getgenv().Config = {
     ["Dont Buy Seed"] = {
         ["If Money More Than"] = 1000000, -- If we have money more than this, will not buying from Seed Name List
         ["Seed Name"] = {
-            "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Carrot", "Bamboo"
+            "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Carrot"
         }
     },
     ["Dont Plant Inventory Seed"] = {
@@ -128,7 +132,7 @@ getgenv().Config = {
             {slot = 50,  min = 100000000}, -- if money 100.000.000 then using this slot
         },
         ["Name Seed Delete"] = {
-            "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Rose", "Foxglove", "Orange Tulip", "Bamboo"
+            "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Rose", "Foxglove", "Orange Tulip"
         }
     }
 }
