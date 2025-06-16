@@ -51,7 +51,7 @@ getgenv().Config = {
         ["Item"] = {
             ["Common Egg"] = false,
             ["Uncommon Egg"] = false,
-            ["Rare Egg"] = false,
+            ["Rare Egg"] = true,
             ["Legendary Egg"] = true,
             ["Mythical Egg"] = true,
             ["Bug Egg"] = true
@@ -91,6 +91,31 @@ getgenv().Config = {
     },
     ["Use Pets"] = {
         ["Enabled"] = true,
+        ["Level"] = 20, -- Will change to another pet if level more than this (if have another pet)
+        ["Slot Unlock"] = { -- Trade pet for increase slot
+            ["Rarity To Trade"] = {
+                ["Common"] = true,
+                ["Uncommon"] = true,
+                ["Rare"] = true,
+                ["Legendary"] = false,
+                ["Mythical"] = false,
+                ["Divine"] = false
+            },
+            ["Pet"] = {
+                ["Slot 4"] = true, -- 4 slot
+                ["Slot 5"] = false, -- 5 slot
+                ["Slot 6"] = false, -- 6 slot
+                ["Slot 7"] = false, -- 7 slot
+                ["Slot 8"] = false, -- 8 slot
+            },
+            ["Egg"] = {
+                ["Slot 4"] = true, -- 4 slot
+                ["Slot 5"] = false, -- 5 slot
+                ["Slot 6"] = false, -- 6 slot
+                ["Slot 7"] = false, -- 7 slot
+                ["Slot 8"] = false, -- 8 slot
+            }
+        },
         ["Pet Name"] = { -- If dont have pet with name then will use by rarity
             "Golden Lab"
         },
