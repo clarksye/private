@@ -140,7 +140,6 @@ getgenv().Config = {
     ["Misc"] = {
         ["Open Seed Pack"] = true,
         ["Plant Seed"] = true,
-        ["Delete Plant"] = true,
         ["Hatch Egg"] = true
     }
 }
