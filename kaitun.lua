@@ -52,8 +52,8 @@ getgenv().Config = {
             ["Common Egg"] = false,
             ["Uncommon Egg"] = false,
             ["Rare Egg"] = false,
-            ["Legendary Egg"] = true,
-            ["Mythical Egg"] = true,
+            ["Legendary Egg"] = false,
+            ["Mythical Egg"] = false,
             ["Bug Egg"] = true
         }
     },
@@ -63,6 +63,8 @@ getgenv().Config = {
             ["Flower Seed Pack"] = true,
             ["Nectarine"] = true,
             ["Hive Fruit"] = true,
+            ["Lavender"] = true,
+            ["Nectarshade"] = true,
             ["Honey Sprinkler"] = true,
             ["Bee Egg"] = true,
             ["Bee Crate"] = false,
