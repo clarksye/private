@@ -63,8 +63,8 @@ getgenv().Config = {
             ["Flower Seed Pack"] = true,
             ["Nectarine"] = true,
             ["Hive Fruit"] = true,
-            ["Lavender"] = false,
-            ["Nectarshade"] = false,
+            ["Lavender"] = true,
+            ["Nectarshade"] = true,
             ["Pollen Radar"] = false,
             ["Nectar Staff"] = false,
             ["Honey Sprinkler"] = true,
@@ -146,9 +146,12 @@ getgenv().Config = {
         }
     },
     ["Dont Plant Inventory Seed"] = {
-        ["Enabled"] = false,
+        ["Enabled"] = true,
         ["Seed Name"] = {
-            "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Carrot", "Rose"
+            "Rose", "Foxglove", "Lilac", "Pink Lily", "Purple Dahlia", "Sunflower",
+            "Crocus", "Succulent", "Violet Corn", "Bendboo", "Cocovine", "Dragon Pepper",
+            "Lavender", "Nectarshade",
+            "Daffodil", "Orange Tulip", "Cactus", "Pumpkin"
         }
     },
     ["Delete Planted Seed"] = {
