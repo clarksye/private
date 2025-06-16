@@ -32,17 +32,17 @@ getgenv().Config = {
         ["Threshold"] = 10000000, -- if enable, will only buy if shekless more than 10.000.000
         ["Item"] = {
             ["Watering Can"] = true,
-            ["Trowel"] = true,
-            ["Recall Wrench"] = true,
+            ["Trowel"] = false,
+            ["Recall Wrench"] = false,
             ["Basic Sprinkler"] = true,
             ["Advanced Sprinkler"] = true,
             ["Godly Sprinkler"] = true,
-            ["Lightning Rod"] = true,
+            ["Lightning Rod"] = false,
             ["Master Sprinkler"] = true,
-            ["Cleaning Spray"] = true,
+            ["Cleaning Spray"] = false,
             ["Favorite Tool"] = false,
             ["Harvest Tool"] = false,
-            ["Friendship Pot"] = true
+            ["Friendship Pot"] = false
         }
     },
     ["Buy Eggs"] = {
