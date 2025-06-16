@@ -136,6 +136,12 @@ getgenv().Config = {
         ["Name Seed Delete"] = {
             "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Rose", "Foxglove", "Orange Tulip"
         }
+    },
+    ["Misc"] = {
+        ["Open Seed Pack"] = true,
+        ["Plant Seed"] = true,
+        ["Delete Plant"] = true,
+        ["Hatch Egg"] = true
     }
 }
 
