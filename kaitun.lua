@@ -52,8 +52,8 @@ getgenv().Config = {
             ["Common Egg"] = false,
             ["Uncommon Egg"] = false,
             ["Rare Egg"] = false,
-            ["Legendary Egg"] = false,
-            ["Mythical Egg"] = false,
+            ["Legendary Egg"] = true,
+            ["Mythical Egg"] = true,
             ["Bug Egg"] = true
         }
     },
