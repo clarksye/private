@@ -76,10 +76,9 @@ task.spawn(function()
 
 		-- Kumpulkan pet berdasarkan rarity
 		for name, count in pairs(pets) do
-            -- Lewatkan jika termasuk shiny
-			if shiny[name] then continue end
-
 			local rarity = PetInfo[name] and PetInfo[name].Rarity
+            -- Lewatkan jika termasuk shiny
+			if shiny[name] and rarity > 3 then continue end
 			if allowed[rarity] then
 				index[name] = 0
 				for i = 1, count do
