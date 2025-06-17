@@ -66,30 +66,34 @@ task.spawn(function()
 	end
 end)
 
--- Task: Auto Fuse Pets
+-- Task: Auto Fuse Pets (hindari shiny)
 task.spawn(function()
 	while task.wait(0.2) do
-		local pets = getPets:Invoke()
-        local shiny = getShiny:Invoke() -- ambil list pet shiny
+		local pets = getPets:Invoke()              -- semua pet dimiliki
+		local shiny = getShiny:Invoke()            -- pet shiny: [nama] = jumlah
 		local pool = {}
 		local index = {}
 
 		-- Kumpulkan pet berdasarkan rarity
 		for name, count in pairs(pets) do
 			local rarity = PetInfo[name] and PetInfo[name].Rarity
-            -- Lewatkan jika termasuk shiny
-			if shiny[name] and rarity > 3 then continue end
-			if allowed[rarity] then
+			if not allowed[rarity] then continue end
+
+			local shinyCount = shiny[name] or 0
+			local fuseCount = count - shinyCount
+
+			-- hanya masukkan ke fuse jika ada pet non-shiny tersisa
+			if fuseCount > 0 then
 				index[name] = 0
-				for i = 1, count do
+				for i = 1, fuseCount do
 					index[name] += 1
 					pool[rarity] = pool[rarity] or {}
-					table.insert(pool[rarity], {Pet = name, Index = index[name]})
+					table.insert(pool[rarity], { Pet = name, Index = index[name] })
 				end
 			end
 		end
 
-		-- Loop berdasarkan semua rarity yang diizinkan (allowed)
+		-- Fuse jika jumlah cukup (>= 5)
 		for rarity, _ in ipairs(allowed) do
 			local list = pool[rarity]
 			if list and #list >= 5 then
@@ -98,7 +102,7 @@ task.spawn(function()
 					table.insert(args[1], list[i])
 				end
 				fuseRemote:FireServer(unpack(args))
-				break
+				break -- lakukan satu kali per loop
 			end
 		end
 	end
