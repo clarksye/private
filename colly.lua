@@ -1,3 +1,9 @@
+getgenv().Config = {
+    ["Auto Collect"] = true,
+    ["Auto Quest"] = true,
+    ["Auto Fuse"] = true,
+}
+
 -- Global Shared Variables
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -9,6 +15,8 @@ local fuseRemote = ReplicatedStorage:WaitForChild("Remotes").FusePets
 local getPets = player:WaitForChild("GetPets")
 local getShiny = player:WaitForChild("GetShinies")
 local PetInfo = require(ReplicatedStorage:WaitForChild("DB").Pets)
+
+local config = getgenv().Config
 
 -- Init
 player.Magnet.Value = 99999
@@ -23,7 +31,7 @@ local allowed = {
     [4] = true,
     [5] = true,
     [6] = true,
-    [7] = false,
+    [7] = true,
 }
 
 task.spawn(function()
@@ -35,6 +43,7 @@ end)
 -- Task: Auto Collect Drops
 task.spawn(function()
 	while task.wait(1) do
+        if not config["Auto Collect"] then continue end
 		local dropIDs = {}
 
 		for _, drop in ipairs(playerScripts:GetChildren()) do
@@ -55,6 +64,7 @@ task.spawn(function()
 	local lastValue = -1 -- Menyimpan area terakhir yang dikirim
 
 	while task.wait(1) do
+        if not config["Auto Quest"] then continue end
 		-- Klaim quest reward setiap detik
 		game:GetService("ReplicatedStorage"):WaitForChild("Remotes").ClaimQuestReward:FireServer()
 
@@ -72,6 +82,7 @@ end)
 -- Task: Auto Fuse Pets (hindari shiny)
 task.spawn(function()
 	while task.wait(0.2) do
+        if not config["Auto Fuse"] then continue end
 		local pets = getPets:Invoke()
 		local shiny = getShiny:Invoke()
 
