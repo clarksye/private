@@ -22,6 +22,8 @@ local allowed = {
     [3] = true,
     [4] = true,
     [5] = true,
+    [6] = true,
+    [7] = false,
 }
 
 task.spawn(function()
@@ -70,40 +72,57 @@ end)
 -- Task: Auto Fuse Pets (hindari shiny)
 task.spawn(function()
 	while task.wait(0.2) do
-		local pets = getPets:Invoke()              -- semua pet dimiliki
-		local shiny = getShiny:Invoke()            -- pet shiny: [nama] = jumlah
-		local pool = {}
-		local index = {}
+		local pets = getPets:Invoke()
+		local shiny = getShiny:Invoke()
 
-		-- Kumpulkan pet berdasarkan rarity
+		local pool, nameMap, index = {}, {}, {}
+
 		for name, count in pairs(pets) do
 			local rarity = PetInfo[name] and PetInfo[name].Rarity
 			if not allowed[rarity] then continue end
 
-			local shinyCount = shiny[name] or 0
-			local fuseCount = count - shinyCount
+			local fuseCount = count - (shiny[name] or 0)
+			if fuseCount <= 0 then continue end
 
-			-- hanya masukkan ke fuse jika ada pet non-shiny tersisa
-			if fuseCount > 0 then
-				index[name] = 0
-				for i = 1, fuseCount do
-					index[name] += 1
-					pool[rarity] = pool[rarity] or {}
-					table.insert(pool[rarity], { Pet = name, Index = index[name] })
-				end
+			index[name] = 0
+			for i = 1, fuseCount do
+				index[name] += 1
+				local entry = { Pet = name, Index = index[name] }
+
+				-- Simpan pet berdasarkan rarity
+				pool[rarity] = pool[rarity] or {}
+				table.insert(pool[rarity], entry)
+
+				-- Simpan juga berdasarkan nama pet (khusus rarity 6+)
+				nameMap[rarity] = nameMap[rarity] or {}
+				nameMap[rarity][name] = nameMap[rarity][name] or {}
+				table.insert(nameMap[rarity][name], entry)
 			end
 		end
 
-		-- Fuse jika jumlah cukup (>= 5)
-		for rarity, _ in ipairs(allowed) do
-			local list = pool[rarity]
-			if list and #list >= 5 then
-				local args = {{}}
-				for i = 1, 5 do
-					table.insert(args[1], list[i])
+		-- Urutkan rarity secara ascending
+		local sorted = {}
+		for rarity in pairs(allowed) do
+			table.insert(sorted, rarity)
+		end
+		table.sort(sorted)
+
+		for _, rarity in ipairs(sorted) do
+			if rarity >= 6 then
+				-- Rarity tinggi: hanya gabungkan pet dengan nama yang sama, butuh 3
+				for name, list in pairs(nameMap[rarity] or {}) do
+					if #list >= 3 then
+						fuseRemote:FireServer({{ unpack(list, 1, 3) }})
+						break
+					end
 				end
-				fuseRemote:FireServer(unpack(args))
-				break -- lakukan satu kali per loop
+			else
+				-- Rarity rendah: cukup 5 pet dari rarity sama
+				local list = pool[rarity]
+				if list and #list >= 5 then
+					fuseRemote:FireServer({{ unpack(list, 1, 5) }})
+					break
+				end
 			end
 		end
 	end
