@@ -13,7 +13,7 @@ local PetInfo = require(ReplicatedStorage:WaitForChild("DB").Pets)
 -- Init
 player.Magnet.Value = 99999
 player.Speed.Value = 100
-player.HatchSpeedTier.Value = 9999
+player.HatchSpeedTier.Value = 999
 
 -- rarity yang boleh digabung (bisa bertambah nanti)
 local allowed = {
