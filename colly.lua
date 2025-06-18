@@ -78,7 +78,12 @@ task.spawn(function()
 		local pool, nameMap, index = {}, {}, {}
 
 		for name, count in pairs(pets) do
-			local rarity = PetInfo[name] and PetInfo[name].Rarity
+            if not PetInfo[name] then
+                warn("Missing PetInfo for:", name)
+                continue
+            end
+            
+			local rarity = PetInfo[name].Rarity
 			if not allowed[rarity] then continue end
 
 			local fuseCount = count - (shiny[name] or 0)
@@ -112,6 +117,7 @@ task.spawn(function()
 				-- Rarity tinggi: hanya gabungkan pet dengan nama yang sama, butuh 3
 				for name, list in pairs(nameMap[rarity] or {}) do
 					if #list >= 3 then
+                        print("yes")
 						fuseRemote:FireServer({{ unpack(list, 1, 3) }})
 						break
 					end
@@ -120,6 +126,7 @@ task.spawn(function()
 				-- Rarity rendah: cukup 5 pet dari rarity sama
 				local list = pool[rarity]
 				if list and #list >= 5 then
+                    print("yes 5")
 					fuseRemote:FireServer({{ unpack(list, 1, 5) }})
 					break
 				end
