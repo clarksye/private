@@ -91,8 +91,10 @@ task.spawn(function()
 
 		for _, area in pairs(Crystals:GetChildren()) do
 			if not area:IsA("Folder") then continue end
-            local current = tonumber(area.Name:match("%d+")) -- ambil angka dari "Area6" → 6
+            local current = tonumber(area.Name:match("%d+"))
+            print("current : ",current)
             local unlocked = player.UnlockedArea.Value
+            print("unlock : ",unlocked)
             if current > unlocked then continue end
 
 			for _, model in pairs(area:GetChildren()) do
