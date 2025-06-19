@@ -100,10 +100,11 @@ task.spawn(function()
 					-- Teleport ke posisi pivot dari model
 					rootPart.CFrame = model:GetPivot() + Vector3.new(0, 5, 0)
 					task.wait(0.1)
-					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("OnAreaButton"):FireServer(player.Area.Value)
+					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("OnAreaButton"):FireServer(current)
+                    task.wait(0.2)
 					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipBest"):FireServer()
 					-- Tunggu sampai model hilang
-					repeat task.wait(0.05) until not model:IsDescendantOf(workspace)
+					repeat task.wait(0.1) until not model:IsDescendantOf(workspace)
 				end
 			end
 		end
