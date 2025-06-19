@@ -2,11 +2,14 @@ getgenv().Config = {
     ["Auto Collect"] = true,
     ["Auto Quest"] = true,
     ["Auto Fuse"] = true,
+    ["Auto Exotics"] = true,
 }
 
 -- Global Shared Variables
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local rootPart = character:WaitForChild("HumanoidRootPart")
 local playerScripts = player:WaitForChild("PlayerScripts")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local dropRemote = ReplicatedStorage:WaitForChild("Remotes").Drop
@@ -64,7 +67,7 @@ task.spawn(function()
 	local lastValue = -1 -- Menyimpan area terakhir yang dikirim
 
 	while task.wait(1) do
-        if not config["Auto Quest"] then continue end
+        if not config["Auto Quest"] or config["Auto Exotics"] then continue end
 		-- Klaim quest reward setiap detik
 		game:GetService("ReplicatedStorage"):WaitForChild("Remotes").ClaimQuestReward:FireServer()
 
@@ -75,6 +78,34 @@ task.spawn(function()
 		if target ~= lastValue then
 			lastValue = target
 			onAreaButtonRemote:FireServer(target)
+		end
+	end
+end)
+
+-- Task: Auto Exotics crystal
+task.spawn(function()
+    local Crystals = workspace:WaitForChild("Crystals")
+
+	while task.wait(1) do
+        if not config["Auto Exotics"] then continue end
+
+		for _, area in pairs(Crystals:GetChildren()) do
+			if not area:IsA("Folder") then continue end
+            local current = tonumber(area.Name:match("%d+")) -- ambil angka dari "Area6" → 6
+            local unlocked = player.UnlockedArea.Value
+            if current > unlocked then continue end
+
+			for _, model in pairs(area:GetChildren()) do
+				if model:IsA("Model") then
+					-- Teleport ke posisi pivot dari model
+					rootPart.CFrame = model:GetPivot() + Vector3.new(0, 5, 0)
+					task.wait(0.1)
+					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("OnAreaButton"):FireServer(player.Area.Value)
+					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipBest"):FireServer()
+					-- Tunggu sampai model hilang
+					repeat task.wait(0.05) until not model:IsDescendantOf(workspace)
+				end
+			end
 		end
 	end
 end)
