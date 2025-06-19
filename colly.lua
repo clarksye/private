@@ -2,7 +2,7 @@ getgenv().Config = {
     ["Auto Collect"] = true,
     ["Auto Quest"] = true,
     ["Auto Fuse"] = true,
-    ["Auto Exotics"] = true,
+    ["Auto Exotics"] = false,
 }
 
 -- Global Shared Variables
@@ -14,6 +14,7 @@ local playerScripts = player:WaitForChild("PlayerScripts")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local dropRemote = ReplicatedStorage:WaitForChild("Remotes").Drop
 local onAreaButtonRemote = ReplicatedStorage:WaitForChild("Remotes").OnAreaButton
+local equipBestRemote = ReplicatedStorage:WaitForChild("Remotes").EquipBest
 local fuseRemote = ReplicatedStorage:WaitForChild("Remotes").FusePets
 local getPets = player:WaitForChild("GetPets")
 local getShiny = player:WaitForChild("GetShinies")
@@ -99,12 +100,10 @@ task.spawn(function()
 				if model:IsA("Model") then
 					-- Teleport ke posisi pivot dari model
 					rootPart.CFrame = model:GetPivot() + Vector3.new(0, 5, 0)
-					task.wait(0.1)
-					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("OnAreaButton"):FireServer(current)
-                    task.wait(0.2)
-					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipBest"):FireServer()
-					-- Tunggu sampai model hilang
-					repeat task.wait(0.1) until not model:IsDescendantOf(workspace)
+					onAreaButtonRemote:FireServer(current)
+                    task.wait(0.3)
+					equipBestRemote:FireServer()
+			        repeat task.wait(0.1) until not model:IsDescendantOf(area)
 				end
 			end
 		end
