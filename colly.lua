@@ -1,3 +1,7 @@
+-- getgenv().Config["Auto Exotics"] = true
+
+if getgenv().Config then return end
+
 getgenv().Config = {
     ["Auto Collect"] = true,
     ["Auto Quest"] = true,
@@ -112,7 +116,7 @@ end)
 
 -- Task: Auto Fuse Pets (hindari shiny)
 task.spawn(function()
-	while task.wait(0.2) do
+	while task.wait(1) do
         if not config["Auto Fuse"] then continue end
 		local pets = getPets:Invoke()
 		local shiny = getShiny:Invoke()
