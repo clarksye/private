@@ -6,6 +6,7 @@ getgenv().Config = {
     ["Auto Collect"] = true,
     ["Auto Quest"] = true,
     ["Auto Fuse"] = true,
+    ["Fuse Shiny"] = false,
     ["Auto Exotics"] = false,
 }
 
@@ -29,7 +30,7 @@ local config = getgenv().Config
 -- Init
 player.Magnet.Value = 99999
 player.Speed.Value = 100
-player.HatchSpeedTier.Value = 200
+player.HatchSpeedTier.Value = 999
 
 -- rarity yang boleh digabung (bisa bertambah nanti)
 local allowed = {
@@ -50,7 +51,7 @@ end)
 
 -- Task: Auto Collect Drops
 task.spawn(function()
-	while task.wait(1) do
+	while task.wait(3) do
         if not config["Auto Collect"] then continue end
 		local dropIDs = {}
 
@@ -114,12 +115,14 @@ task.spawn(function()
 	end
 end)
 
--- Task: Auto Fuse Pets (hindari shiny)
+-- Task: Auto Fuse Pets (hindari shiny jika tidak diizinkan)
 task.spawn(function()
 	while task.wait(1) do
-        if not config["Auto Fuse"] then continue end
+		if not config["Auto Fuse"] then continue end
+
 		local pets = getPets:Invoke()
 		local shiny = getShiny:Invoke()
+		local allowShiny = config["Fuse Shiny"]
 
 		local pool, nameMap, index = {}, {}, {}
 
@@ -127,7 +130,8 @@ task.spawn(function()
 			local rarity = PetInfo[name] and PetInfo[name].Rarity
 			if not allowed[rarity] then continue end
 
-			local fuseCount = count - (shiny[name] or 0)
+			-- Kurangi shiny jika tidak diizinkan
+			local fuseCount = allowShiny and count or (count - (shiny[name] or 0))
 			if fuseCount <= 0 then continue end
 
 			index[name] = 0
