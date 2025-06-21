@@ -115,7 +115,8 @@ task.spawn(function()
 
         local petEquipped = player.NumEquipped.Value
         local petSlot = player.PetSlotsUnlocked.Value
-        if petSlot > petEquipped then
+        local petCount = player.TotalPets.Value
+        if petSlot > petEquipped and petCount >= petSlot then
             equipBestRemote:FireServer()
             task.wait(1)
         end
