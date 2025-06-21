@@ -1,12 +1,13 @@
 -- getgenv().Config["Auto Exotics"] = true
 -- getgenv().Config["Fuse Shiny"] = true
+-- getgenv().Config["Quest Lock Area"] = 6
 
 if getgenv().Config then return end
 
 getgenv().Config = {
     ["Auto Collect"] = true,
     ["Auto Quest"] = true,
-    ["Quest Lock Area"] = 5,
+    ["Quest Lock Area"] = 6,
     ["Auto Equip Best"] = true,
     ["Auto Fuse"] = true,
     ["Fuse Shiny"] = true,
