@@ -77,43 +77,36 @@ end)
 -- Task: Quest Auto Change Area When QuestArea Changes
 task.spawn(function()
 	local questArea = player:WaitForChild("QuestArea")
-	local lockedArea = player:WaitForChild("LockedArea")
-	local lastValue = -1
-	local forcedLock = false
+    local unlockedArea = player:WaitForChild("UnlockedArea")
+	local lastValue = -1 -- Menyimpan area terakhir yang dikirim
 
 	while task.wait(1) do
-		if not config["Auto Quest"] or config["Auto Exotics"] then continue end
-
-		-- Klaim quest reward jika selesai
-		if player.QuestGoal.Value == player.QuestProgress.Value then
-			game.ReplicatedStorage.Remotes.ClaimQuestReward:FireServer()
-			task.wait(1)
-		end
+        if not config["Auto Quest"] or config["Auto Exotics"] then continue end
+        
+		-- Klaim quest reward setiap detik
+        if player.QuestGoal.Value == player.QuestProgress.Value then
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes").ClaimQuestReward:FireServer()
+            task.wait(1)
+        end
 
 		local current = questArea.Value
-		local target = current > 0 and current or 1
+		local target = current > 0 and current or 1 -- Jika current 0, fallback ke area 1
 
-		local lockArea = config["Quest Lock Area"]
-		if typeof(lockArea) == "number" then
-			if lockArea < lockedArea.Value then
-				if current ~= lockArea then
-					target = lockArea
-					forcedLock = true
-				else
-					-- sudah berada di lockArea
-					forcedLock = false
-				end
+        local lockArea = config["Quest Lock Area"]
+        if typeof(lockArea) == "number" then
+			-- Jika sudah unlocked dan pet belum berada di area itu
+			if lockArea <= unlockedArea.Value and current ~= lockArea then
+				target = lockArea
 			end
 		end
-
-		-- Cegah spam berpindah jika sudah di area yang diinginkan
-		if target ~= lastValue or forcedLock then
+        
+		-- Hanya kirim jika berbeda dari sebelumnya
+		if target ~= lastValue then
 			lastValue = target
 			onAreaButtonRemote:FireServer(target)
 		end
 	end
 end)
-
 
 -- Task: Auto EquipBest pet
 task.spawn(function()
