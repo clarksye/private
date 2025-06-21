@@ -1,7 +1,7 @@
 -- getgenv().Config["Auto Exotics"] = true
 -- getgenv().Config["Fuse Shiny"] = true
 
-if getgenv().Config then return end
+-- if getgenv().Config then return end
 
 getgenv().Config = {
     ["Auto Collect"] = true,
