@@ -29,7 +29,7 @@ local config = getgenv().Config
 -- Init
 player.Magnet.Value = 99999
 player.Speed.Value = 100
-player.HatchSpeedTier.Value = 500
+player.HatchSpeedTier.Value = 200
 
 -- rarity yang boleh digabung (bisa bertambah nanti)
 local allowed = {
