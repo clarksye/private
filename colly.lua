@@ -1,4 +1,5 @@
 -- getgenv().Config["Auto Exotics"] = true
+-- getgenv().Config["Fuse Shiny"] = true
 
 if getgenv().Config then return end
 
