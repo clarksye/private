@@ -1,13 +1,15 @@
 -- getgenv().Config["Auto Exotics"] = true
 -- getgenv().Config["Fuse Shiny"] = true
 
--- if getgenv().Config then return end
+if getgenv().Config then return end
 
 getgenv().Config = {
     ["Auto Collect"] = true,
     ["Auto Quest"] = true,
+    ["Auto Equip Best"] = true,
     ["Auto Fuse"] = true,
-    ["Fuse Shiny"] = false,
+    ["Fuse Shiny"] = true,
+    ["Auto Rebirth"] = true,
     ["Auto Exotics"] = false,
 }
 
@@ -22,6 +24,7 @@ local dropRemote = ReplicatedStorage:WaitForChild("Remotes").Drop
 local onAreaButtonRemote = ReplicatedStorage:WaitForChild("Remotes").OnAreaButton
 local equipBestRemote = ReplicatedStorage:WaitForChild("Remotes").EquipBest
 local fuseRemote = ReplicatedStorage:WaitForChild("Remotes").FusePets
+local selectPrimalPetRemote = ReplicatedStorage:WaitForChild("Remotes").SelectPrimalPet
 local getPets = player:WaitForChild("GetPets")
 local getShiny = player:WaitForChild("GetShinies")
 local PetInfo = require(ReplicatedStorage:WaitForChild("DB").Pets)
@@ -89,31 +92,18 @@ task.spawn(function()
 	end
 end)
 
--- Task: Auto Exotics crystal
+-- Task: Auto EquipBest pet
 task.spawn(function()
-    local Crystals = workspace:WaitForChild("Crystals")
+    local petEquipped = player.NumEquipped.Value
+    local petSlot = player.PetSlotsUnlocked.Value
 
-	while task.wait(1) do
-        if not config["Auto Exotics"] then continue end
-
-		for _, area in pairs(Crystals:GetChildren()) do
-			if not area:IsA("Folder") then continue end
-            local current = tonumber(area.Name:match("%d+"))
-            local unlocked = player.UnlockedArea.Value
-            if not current or current > unlocked then continue end
-
-			for _, model in pairs(area:GetChildren()) do
-				if model:IsA("Model") then
-					-- Teleport ke posisi pivot dari model
-					rootPart.CFrame = model:GetPivot() + Vector3.new(0, 5, 0)
-					onAreaButtonRemote:FireServer(current)
-                    task.wait(0.3)
-					equipBestRemote:FireServer()
-			        repeat task.wait(0.1) until not model:IsDescendantOf(area)
-				end
-			end
-		end
-	end
+    while task.wait(3) do
+        if not config["Auto Equip Best"] then continue end
+        if petSlot > petEquipped then
+            equipBestRemote:FireServer()
+            task.wait(1)
+        end
+    end
 end)
 
 -- Task: Auto Fuse Pets (hindari shiny jika tidak diizinkan)
@@ -173,6 +163,81 @@ task.spawn(function()
 				if list and #list >= 5 then
 					fuseRemote:FireServer({ unpack(list, 1, 5) })
 					break
+				end
+			end
+		end
+	end
+end)
+
+-- Task: Auto Rebirth
+task.spawn(function()
+    local Players = game:GetService("Players")
+    local player = Players.LocalPlayer
+    local discovered = player.NumDiscovered.Value
+    local gold = player.Gold.Value
+
+    while task.wait(3) do
+        if not config["Auto Rebirth"] then continue end
+        for _, checkmark in ipairs(player.PlayerGui.ScreenGui.Main.Left.Checklist:GetChildren()) do
+            local name = checkmark.Name
+            if tonumber(name) then
+                while not checkmark.Checkmark.Check.Visible do
+                    local rarity = (name > 4 and 4 or name)
+                    rarity = (rarity == 4 and gold < 2000000) and 3 or rarity
+
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyEgg"):FireServer(rarity)
+                    task.wait(0.5)
+                end
+
+                if discovered ~= 240 then break end
+
+                -- Fire semua proximityprompt di dalam Fires
+                for _, fire in ipairs(workspace.Environment.Cave.Alter.Fires:GetChildren()) do
+                    local prompt = fire:FindFirstChild("ProxPart") and fire.ProxPart:FindFirstChildWhichIsA("ProximityPrompt")
+                    if prompt then
+                        fireproximityprompt(prompt)
+                        task.wait(0.4)
+                    end
+                end
+
+                -- Fire proximityprompt utama untuk rebirth
+                local mainPrompt = workspace.Environment.Cave.Alter:FindFirstChild("ProxPart") and workspace.Environment.Cave.Alter.ProxPart:FindFirstChildWhichIsA("ProximityPrompt")
+                if mainPrompt then
+                    fireproximityprompt(mainPrompt)
+                    task.wait(3)
+                end
+
+                -- Select pet (param 2 is index pet from that rarity)
+                selectPrimalPetRemote:FireServer("Primal_Prodigious", 2)
+                task.wait(1)
+                selectPrimalPetRemote:FireServer("Primal_Ascended", 1)
+                task.wait(1)
+            end
+        end
+    end
+end)
+
+-- Task: Auto Exotics crystal
+task.spawn(function()
+    local Crystals = workspace:WaitForChild("Crystals")
+
+	while task.wait(1) do
+        if not config["Auto Exotics"] then continue end
+
+		for _, area in pairs(Crystals:GetChildren()) do
+			if not area:IsA("Folder") then continue end
+            local current = tonumber(area.Name:match("%d+"))
+            local unlocked = player.UnlockedArea.Value
+            if not current or current > unlocked then continue end
+
+			for _, model in pairs(area:GetChildren()) do
+				if model:IsA("Model") then
+					-- Teleport ke posisi pivot dari model
+					rootPart.CFrame = model:GetPivot() + Vector3.new(0, 5, 0)
+					onAreaButtonRemote:FireServer(current)
+                    task.wait(0.3)
+					equipBestRemote:FireServer()
+			        repeat task.wait(0.1) until not model:IsDescendantOf(area)
 				end
 			end
 		end
