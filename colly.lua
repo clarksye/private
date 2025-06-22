@@ -7,6 +7,7 @@ if getgenv().Config then return end
 
 getgenv().Config = {
     ["Auto Collect"] = true,
+    ["Auto Collect Hidden"] = true,
     ["Auto Quest"] = true,
     ["Quest Lock Area"] = 6,
     ["Auto Equip Best"] = true,
@@ -59,6 +60,31 @@ local allowed = {
 task.spawn(function()
     while task.wait(10) do
         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ClaimDailyEgg"):FireServer()
+    end
+end)
+
+-- Task: Auto Collect Hidden Eggs
+task.spawn(function()
+    local hiddenEggs = workspace:WaitForChild("HiddenEggs")
+    local unlockedArea = player:WaitForChild("UnlockedArea")
+    local lastUnlock = 0
+
+    while task.wait(5) do
+        if not config["Auto Collect Hidden"] then continue end
+
+        if lastUnlock ~= unlockedArea.Value then
+            lastUnlock = unlockedArea.Value
+            for _, descendant in ipairs(hiddenEggs:GetDescendants()) do
+                if descendant:IsA("TouchTransmitter") then
+                    local part = descendant.Parent
+                    if part and part:IsA("BasePart") then
+                        firetouchinterest(rootPart, part, 0)
+                        task.wait()
+                        firetouchinterest(rootPart, part, 1)
+                    end
+                end
+            end
+        end
     end
 end)
 
