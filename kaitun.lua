@@ -25,3 +25,5 @@ local function movePlantsByName(plantName, offsetStuds)
 end
 
 movePlantsByName("Sunflower", 25)
+movePlantsByName("Ember Lily", 25)
+movePlantsByName("Sugar Apple", 25)
