@@ -7,6 +7,7 @@ if getgenv().Config then return end
 
 getgenv().Config = {
     ["Auto Collect"] = true,
+    ["Auto Hatch"] = true,
     ["Auto Collect Hidden"] = true,
     ["Auto Quest"] = true,
     ["Quest Lock Area"] = 6,
@@ -63,6 +64,46 @@ task.spawn(function()
     end
 end)
 
+-- Task: Auto Collect Drops
+task.spawn(function()
+	while task.wait(3) do
+        if not config["Auto Collect"] then continue end
+		local dropIDs = {}
+
+		for _, drop in ipairs(playerScripts:GetChildren()) do
+			if drop:FindFirstChild("Gold") and drop:FindFirstChild("ID") then
+				table.insert(dropIDs, drop.ID.Value)
+			end
+		end
+
+		if #dropIDs > 0 then
+			dropRemote:FireServer(dropIDs)
+		end
+	end
+end)
+
+-- Task: Auto Hatch Eggs
+task.spawn(function()
+    while task.wait(1) do
+        if not config["Auto Hatch"] then continue end
+
+        for _, checkmark in ipairs(player.PlayerGui.ScreenGui.Main.Left.Checklist:GetChildren()) do
+            local name = tonumber(checkmark.Name)
+            if name then
+                while not checkmark.Checkmark.Check.Visible or name == 8 do
+                    if not config["Auto Hatch"] then break end
+
+                    local rarity = (name > 4 and 4 or name)
+                    rarity = (rarity == 4 and player.Gold.Value < 2000000) and 3 or rarity
+
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyEgg"):FireServer(rarity)
+                    task.wait(0.5)
+                end
+            end
+        end
+    end
+end)
+
 -- Task: Auto Collect Hidden Eggs
 task.spawn(function()
     local hiddenEggs = workspace:WaitForChild("HiddenEggs")
@@ -86,24 +127,6 @@ task.spawn(function()
             end
         end
     end
-end)
-
--- Task: Auto Collect Drops
-task.spawn(function()
-	while task.wait(3) do
-        if not config["Auto Collect"] then continue end
-		local dropIDs = {}
-
-		for _, drop in ipairs(playerScripts:GetChildren()) do
-			if drop:FindFirstChild("Gold") and drop:FindFirstChild("ID") then
-				table.insert(dropIDs, drop.ID.Value)
-			end
-		end
-
-		if #dropIDs > 0 then
-			dropRemote:FireServer(dropIDs)
-		end
-	end
 end)
 
 -- Task: Quest Auto Change Area When QuestArea Changes
@@ -220,25 +243,8 @@ end)
 
 -- Task: Auto Rebirth
 task.spawn(function()
-    local Players = game:GetService("Players")
-    local player = Players.LocalPlayer
-
-    while task.wait(3) do
+    while task.wait(5) do
         if not config["Auto Rebirth"] then continue end
-        for _, checkmark in ipairs(player.PlayerGui.ScreenGui.Main.Left.Checklist:GetChildren()) do
-            local name = tonumber(checkmark.Name)
-            if name then
-                while not checkmark.Checkmark.Check.Visible do
-                    if not config["Auto Rebirth"] then break end
-
-                    local rarity = (name > 4 and 4 or name)
-                    rarity = (rarity == 4 and player.Gold.Value < 2000000) and 3 or rarity
-
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyEgg"):FireServer(rarity)
-                    task.wait(0.5)
-                end
-            end
-        end
 
         if player.NumDiscovered.Value ~= 240 then continue end
         -- Fire semua proximityprompt di dalam Fires
