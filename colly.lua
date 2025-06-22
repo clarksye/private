@@ -34,6 +34,12 @@ local PetInfo = require(ReplicatedStorage:WaitForChild("DB").Pets)
 
 local config = getgenv().Config
 
+-- -- Destroy Hatch Egg
+-- local hatcher = game.Players.LocalPlayer.PlayerGui:FindFirstChild("ScreenGui")
+-- if hatcher and hatcher:FindFirstChild("Hatcher") then
+-- 	hatcher.Hatcher:Destroy()
+-- end
+
 -- Init
 player.Magnet.Value = 99999
 player.Speed.Value = 100
@@ -197,6 +203,8 @@ task.spawn(function()
             local name = tonumber(checkmark.Name)
             if name then
                 while not checkmark.Checkmark.Check.Visible do
+                    if not config["Auto Rebirth"] then break end
+                    
                     local rarity = (name > 4 and 4 or name)
                     rarity = (rarity == 4 and player.Gold.Value < 2000000) and 3 or rarity
 
