@@ -67,7 +67,7 @@ getgenv().Config = {
             ["Rare Summer Egg"] = true,     -- ✅ baru
             ["Legendary Egg"] = true,
             ["Mythical Egg"] = true,
-            ["Paradise"] = true,            -- ✅ baru
+            ["Paradise Egg"] = true,            -- ✅ baru
             ["Bug Egg"] = true
         }
     },
