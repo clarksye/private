@@ -1,7 +1,14 @@
--- getgenv().Config["Auto Exotics"] = true
--- getgenv().Config["Fuse Shiny"] = true
+-- getgenv().Config["Auto Collect"] = false
+-- getgenv().Config["Auto Hatch"] = false
+-- getgenv().Config["Auto Collect Hidden"] = false
+-- getgenv().Config["Auto Quest"] = false
 -- getgenv().Config["Quest Lock Area"] = 8
+-- getgenv().Config["Auto Equip Best"] = false
+-- getgenv().Config["Auto Fuse"] = false
+-- getgenv().Config["Fuse Shiny"] = false
 -- getgenv().Config["Auto Rebirth"] = false
+-- getgenv().Config["Auto Exotics"] = false
+
 
 if getgenv().Config then return end
 
