@@ -1,5 +1,5 @@
 -- getgenv().Config["Auto Collect"] = false
--- getgenv().Config["Auto Hatch"] = false
+-- getgenv().Config["Auto Hatch"] = true
 -- getgenv().Config["Auto Collect Hidden"] = false
 -- getgenv().Config["Auto Quest"] = false
 -- getgenv().Config["Quest Lock Area"] = 8
@@ -97,7 +97,7 @@ task.spawn(function()
         for _, checkmark in ipairs(player.PlayerGui.ScreenGui.Main.Left.Checklist:GetChildren()) do
             local name = tonumber(checkmark.Name)
             if name then
-                while not checkmark.Checkmark.Check.Visible or name == 8 do
+                while not checkmark.Checkmark.Check.Visible or (name == 8 and not config["Auto Rebirth"]) do
                     if not config["Auto Hatch"] then break end
 
                     local rarity = (name > 4 and 4 or name)
