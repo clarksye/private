@@ -2,7 +2,7 @@
 -- getgenv().Config["Auto Hatch"] = true
 -- getgenv().Config["Auto Collect Hidden"] = false
 -- getgenv().Config["Auto Quest"] = false
--- getgenv().Config["Quest Lock Area"] = 8
+-- getgenv().Config["Quest Lock Area"] = 7
 -- getgenv().Config["Auto Equip Best"] = false
 -- getgenv().Config["Auto Fuse"] = false
 -- getgenv().Config["Fuse Shiny"] = false
@@ -21,7 +21,7 @@ getgenv().Config = {
     ["Auto Equip Best"] = true,
     ["Auto Fuse"] = true,
     ["Fuse Shiny"] = true,
-    ["Auto Rebirth"] = true,
+    ["Auto Rebirth"] = false,
     ["Auto Exotics"] = false,
 }
 
