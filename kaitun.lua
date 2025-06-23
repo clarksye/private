@@ -174,8 +174,8 @@ getgenv().Config = {
             {slot = 300, min = 0},        -- if money 0 then using this slot
             {slot = 200, min = 1000000},  -- if money 1.000.000 then using this slot
             {slot = 150, min = 10000000}, -- if money 10.000.000 then using this slot
-            {slot = 100, min = 20000000}, -- if money 20.000.000 then using this slot
-            {slot = 50,  min = 100000000}, -- if money 100.000.000 then using this slot
+            {slot = 100, min = 50000000}, -- if money 50.000.000 then using this slot
+            {slot = 50,  min = 1000000000}, -- if money 1.000.000.000 then using this slot
         },
         ["Name Seed Delete"] = {
             "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Rose", "Foxglove", "Orange Tulip"
