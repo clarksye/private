@@ -160,7 +160,7 @@ getgenv().Config = {
         }
     },
     ["Dont Plant Inventory Seed"] = {
-        ["Enabled"] = true,
+        ["Enabled"] = false,
         ["Seed Name"] = {
             "Rose", "Foxglove", "Lilac", "Pink Lily", "Purple Dahlia", "Sunflower",
             "Crocus", "Succulent", "Violet Corn", "Bendboo", "Cocovine", "Dragon Pepper",
