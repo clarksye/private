@@ -182,13 +182,20 @@ getgenv().Config = {
         }
     },
     ["Max Plant"] = { -- CAUTION if plant in plot more than max will be deleted!
-        ["Daffodil"] = 30,
-        ["Bamboo"] = 30,
-        ["Coconut"] = 15,
-        ["Cactus"] = 15,
-        ["Dragon Fruit"] = 15,
-        ["Mango"] = 15,
-        ["Grape"] = 15,
+        ["Enabled"] = true,
+        ["Max"] = 30,
+        ["Max By Name"] = {
+            ["Strawberry"] = 100,
+            ["Blueberry"] = 100,
+            ["Tomato"] = 100,
+            ["Daffodil"] = 30,
+            ["Bamboo"] = 30,
+            ["Coconut"] = 15,
+            ["Cactus"] = 15,
+            ["Dragon Fruit"] = 15,
+            ["Mango"] = 15,
+            ["Grape"] = 15,
+        }  
     },
     ["Misc"] = {
         ["Open Seed Pack"] = true,
