@@ -67,7 +67,7 @@ getgenv().Config = {
             ["Rare Summer Egg"] = true,     -- ✅ baru
             ["Legendary Egg"] = true,
             ["Mythical Egg"] = true,
-            ["Paradise"] = true,            -- ✅ baru
+            ["Paradise Egg"] = true,        -- ✅ baru
             ["Bug Egg"] = true
         }
     },
@@ -154,13 +154,14 @@ getgenv().Config = {
         }
     },
     ["Dont Buy Seed"] = {
+        ["Enabled"] = true,
         ["If Money More Than"] = 1000000, -- If we have money more than this, will not buying from Seed Name List
         ["Seed Name"] = {
             "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Carrot"
         }
     },
     ["Dont Plant Inventory Seed"] = {
-        ["Enabled"] = false,
+        ["Enabled"] = true,
         ["Seed Name"] = {
             "Rose", "Foxglove", "Lilac", "Pink Lily", "Purple Dahlia", "Sunflower",
             "Crocus", "Succulent", "Violet Corn", "Bendboo", "Cocovine", "Dragon Pepper",
@@ -174,8 +175,8 @@ getgenv().Config = {
             {slot = 300, min = 0},        -- if money 0 then using this slot
             {slot = 200, min = 1000000},  -- if money 1.000.000 then using this slot
             {slot = 150, min = 10000000}, -- if money 10.000.000 then using this slot
-            {slot = 100, min = 50000000}, -- if money 50.000.000 then using this slot
-            {slot = 50,  min = 1000000000}, -- if money 1.000.000.000 then using this slot
+            {slot = 100, min = 20000000}, -- if money 20.000.000 then using this slot
+            {slot = 50,  min = 100000000}, -- if money 100.000.000 then using this slot
         },
         ["Name Seed Delete"] = {
             "Strawberry",  "Blueberry", "Tomato", "Corn", "Apple", "Rose", "Foxglove", "Orange Tulip"
