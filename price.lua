@@ -13,7 +13,7 @@ end
 local function updateEquippedLabel()
 	local tool = character:FindFirstChildOfClass("Tool")
 	local show = "Price : -"
-	if tool and tool:GetAttribute("d") and not tool:GetAttribute("PetType") then
+	if tool and tool:GetAttribute("d") ~= nil and tool:GetAttribute("PetType") == nil then
 		local ok, val = pcall(getFruitPrice, tool)
 		if ok and typeof(val) == "number" then
 			show = "Price : " .. formatNumber(val)
@@ -27,6 +27,7 @@ end
 character.ChildAdded:Connect(function(child)
 	if child:IsA("Tool") then task.defer(updateEquippedLabel) end
 end)
+
 character.ChildRemoved:Connect(function(child)
 	if child:IsA("Tool") then task.defer(updateEquippedLabel) end
 end)
@@ -39,7 +40,7 @@ task.spawn(function()
 		local total = 0
 		for _, container in ipairs({player.Backpack, player.Character}) do
 			for _, tool in ipairs(container:GetChildren()) do
-				if tool:IsA("Tool") and tool:GetAttribute("d") and not tool:GetAttribute("PetType") then
+				if tool:IsA("Tool") and tool:GetAttribute("d") ~= nil and tool:GetAttribute("PetType") == nil then
 					local ok, val = pcall(getFruitPrice, tool)
 					if ok and typeof(val) == "number" then
 						total += val
