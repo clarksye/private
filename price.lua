@@ -47,7 +47,7 @@ task.spawn(function()
 				end
 			end
 		end
-		searchBox.PlaceholderText = "Total Fruit Value: " .. formatNumber(total)
+		searchBox.PlaceholderText = "Total: " .. formatNumber(total)
 		task.wait(3)
 	end
 end)
