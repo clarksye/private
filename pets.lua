@@ -21,7 +21,7 @@ getgenv().Config = {
         ["Enabled"] = true,
         ["Level"] = 20, -- Jual semua yang di bawah level
         ["Keep"] = { -- List pet yang tidak ingin di jual
-            "Dragonfly", "Disco Bee", "Raccoon", "Queen Bee", "Cooked Owl", "T-rex", "Toucan", "Ostrich", "Triceratops", "Brontosaurus", "Capybara", "Starfish", "Blood Owl"
+            "Dragonfly", "Disco Bee", "Raccoon", "Queen Bee", "Cooked Owl", "T-rex", "Toucan", "Ostrich", "Triceratops", "Brontosaurus", "Capybara", "Starfish", "Blood Owl", "Bald Eagle"
         }
     }
 }
