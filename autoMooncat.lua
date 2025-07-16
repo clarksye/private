@@ -224,7 +224,6 @@ end
 local step = 0
 local elapsed = 0
 local stepInProgress = false
-local currentPlants = nil
 
 RunService.Heartbeat:Connect(function(dt)
     elapsed = elapsed + dt
@@ -262,7 +261,7 @@ RunService.Heartbeat:Connect(function(dt)
     elseif step == 4 and elapsed >= 205 and not stepInProgress then
         stepInProgress = true
         print("STEP 4: Tanam di Posisi Cats")
-        placeToCatsPosition(backpack.trowel, currentPlants)
+        placeToCatsPosition(backpack.trowel, targetPlants)
         step = 5
         stepInProgress = false
 
