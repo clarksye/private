@@ -298,7 +298,7 @@ RunService.Heartbeat:Connect(function(dt)
         step = 5
         stepInProgress = false
 
-    elseif step == 5 and elapsed >= 209 and not stepInProgress then
+    elseif step == 5 and elapsed >= 211 and not stepInProgress then
         stepInProgress = true
         print("STEP 5: Tanam di Posisi Terbaik")
         local bestPos = getBestPlantingSpot()
