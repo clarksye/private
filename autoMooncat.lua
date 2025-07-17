@@ -56,6 +56,47 @@ local function getMoonCatPositions()
     return positions
 end
 
+local function getBestOverlapPoint(field, petPositions, radius, step)
+    local center = field.Position
+    local size = field.Size
+    local best = {point = nil, count = 0}
+
+    for x = center.X - size.X / 2, center.X + size.X / 2, step do
+        for z = center.Z - size.Z / 2, center.Z + size.Z / 2, step do
+            local testPoint = Vector3.new(x, center.Y, z)
+            local count = 0
+            for _, petPos in ipairs(petPositions) do
+                if (Vector3.new(petPos.X, 0, petPos.Z) - Vector3.new(x, 0, z)).Magnitude <= radius then
+                    count = count + 1
+                end
+            end
+            if count > best.count then
+                best = {point = testPoint, count = count}
+            end
+        end
+    end
+
+    return best
+end
+
+local function getBestPlantingSpot()
+    local farm = getMyFarm()
+    local fields = farm.Important.Plant_Locations:GetChildren()
+    local moonCats = getMoonCatPositions()
+    local best = {point = nil, count = -1}
+
+    for _, field in ipairs(fields) do
+        if field.Name == "Can_Plant" then
+            local result = getBestOverlapPoint(field, moonCats, 9, 1)
+            if result.count > best.count then
+                best = result
+            end
+        end
+    end
+
+    return best.point
+end
+
 local function pickupPlants(trowel, plantName)
     local plants = {}
     local farm = getMyFarm()
@@ -87,15 +128,6 @@ local function placePlants(trowel, plants, position)
 
     for _, plant in ipairs(plants) do
         trowelRemote:InvokeServer("Place", trowel, plant, cf)
-    end
-end
-
-local function placeToCatsPosition(trowel, plantTable)
-    local cats = getMoonCatPositions()
-    for _, cPos in ipairs(cats) do
-        local plants = pickupAllTargetPlants(trowel, plantTable)
-        placePlants(trowel, plants, cPos)
-        task.wait(0.2)
     end
 end
 
@@ -224,6 +256,7 @@ end
 local step = 0
 local elapsed = 0
 local stepInProgress = false
+local currentPlants = nil
 
 RunService.Heartbeat:Connect(function(dt)
     elapsed = elapsed + dt
@@ -235,7 +268,7 @@ RunService.Heartbeat:Connect(function(dt)
         step = 1
         stepInProgress = false
 
-    elseif step == 1 and elapsed >= 137 and not stepInProgress then
+    elseif step == 1 and elapsed >= 140 and not stepInProgress then
         stepInProgress = true
         print("STEP 1: Equip Moon Cat")
         equipPets(backpack.pets["Moon Cat"], mooncatCount)
@@ -250,7 +283,7 @@ RunService.Heartbeat:Connect(function(dt)
         step = 3
         stepInProgress = false
 
-    elseif step == 3 and elapsed >= 193 and not stepInProgress then
+    elseif step == 3 and elapsed >= 200 and not stepInProgress then
         stepInProgress = true
         print("STEP 3: Destroy Buah Kurang Berat")
         destroyUnderweightFruits(targetPlants)
@@ -260,14 +293,22 @@ RunService.Heartbeat:Connect(function(dt)
 
     elseif step == 4 and elapsed >= 205 and not stepInProgress then
         stepInProgress = true
-        print("STEP 4: Tanam di Posisi Cats")
-        placeToCatsPosition(backpack.trowel, targetPlants)
+        print("STEP 4: Pickup Tanaman")
+        currentPlants = pickupAllTargetPlants(backpack.trowel, targetPlants)
         step = 5
         stepInProgress = false
 
-    elseif step == 5 and elapsed >= 230 and not stepInProgress then
+    elseif step == 5 and elapsed >= 209 and not stepInProgress then
         stepInProgress = true
-        print("STEP 5: Pickup semua pet")
+        print("STEP 5: Tanam di Posisi Terbaik")
+        local bestPos = getBestPlantingSpot()
+        placePlants(backpack.trowel, currentPlants, bestPos)
+        step = 6
+        stepInProgress = false
+
+    elseif step == 6 and elapsed >= 235 and not stepInProgress then
+        stepInProgress = true
+        print("STEP 6: Pickup semua pet")
         unEquipPets(backpack.pets["Triceratop"])
         unEquipPets(backpack.pets["Moon Cat"])
         Hum:UnequipTools()
