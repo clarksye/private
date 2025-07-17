@@ -2,7 +2,7 @@ getgenv().Config = {
     ["Place Eggs"] = {
         ["Enabled"] = true,
         ["Order By"] = {
-            "Common Egg", "Common Summer Egg", "Uncommon Egg", "Rare Egg", "Rare Summer Egg", "Legendary Egg", "Night Egg", "Bee Egg", "Dinosaur Egg", "Oasis Egg", "Primal Egg", "Mythical Egg", "Paradise Egg", "Bug Egg"
+            "Paradise Egg", "Common Egg", "Common Summer Egg", "Uncommon Egg", "Rare Egg", "Rare Summer Egg", "Legendary Egg", "Night Egg", "Bee Egg", "Dinosaur Egg", "Oasis Egg", "Primal Egg", "Mythical Egg", "Bug Egg"
         },
         ["Item"] = {
             ["Common Egg"] = true,
