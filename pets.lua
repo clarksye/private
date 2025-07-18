@@ -2,7 +2,7 @@ getgenv().Config = {
     ["Place Eggs"] = {
         ["Enabled"] = true,
         ["Order By"] = {
-            "Paradise Egg", "Common Egg", "Common Summer Egg", "Uncommon Egg", "Rare Egg", "Rare Summer Egg", "Legendary Egg", "Night Egg", "Bee Egg", "Dinosaur Egg", "Oasis Egg", "Primal Egg", "Mythical Egg", "Bug Egg"
+            "Common Egg", "Common Summer Egg", "Uncommon Egg", "Rare Egg", "Rare Summer Egg", "Legendary Egg", "Night Egg", "Bee Egg", "Dinosaur Egg", "Oasis Egg", "Primal Egg", "Mythical Egg", "Paradise Egg", "Bug Egg"
         },
         ["Item"] = {
             ["Common Egg"] = true,
@@ -25,8 +25,79 @@ getgenv().Config = {
         ["Enabled"] = true,
         ["Level"] = 45, -- Jual semua yang di bawah level
         ["Keep"] = { -- List pet yang tidak ingin di jual
-            "Dragonfly", "Disco Bee", "Raccoon", "Queen Bee", "Cooked Owl", "T-Rex", "Toucan", "Ostrich", "Triceratops", "Brontosaurus", "Capybara", "Blood Owl",
-            "Bald Eagle","Moon Cat", "Scarlet Macaw", "Blood Hedgehog", "Blood Kiwi", "Butterfly", "Pterodactyl"
+            ["Type"] = {
+                -- Mutation Type
+                "Butterfly", "Dragonfly", "Disco Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus",
+                -- Fruits
+                "Moon Cat", "Blood Hedgehog",
+                -- Eggs
+                "Blood Kiwi", "Ostrich", "Brontosaurus", "Bald Eagle",
+                -- Target Pet
+                "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk",
+                -- Steal
+                "Raccoon"
+            },
+            ["Mutation"] = {
+                ["a"] = { -- Shocked
+                    -- Mutation Type
+                    "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus",
+                    -- Fruits
+                    "Moon Cat", "Cat", "Orange Tabby", "Pig", "Cow", "Sea Otter", "Turtle", "Caterpillar", "Praying Mantis", "Giant Ant", "Red Giant Ant", "Triceratops", "Raptor", "Blood Hedgehog",
+                    -- Eggs
+                    "Blood Kiwi", "Ostrich", "Brontosaurus", "Bald Eagle",
+                    -- Target Pet
+                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk",
+                    -- Steal
+                    "Raccoon"
+                },
+                ["b"] = { -- Golden
+                    -- Mutation Type
+                    "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus",
+                    -- Fruits
+                    "Moon Cat", "Cat", "Orange Tabby", "Pig", "Cow", "Sea Otter", "Turtle", "Caterpillar", "Praying Mantis", "Giant Ant", "Red Giant Ant", "Triceratops", "Raptor", "Blood Hedgehog",
+                    -- Eggs
+                    "Blood Kiwi", "Ostrich", "Brontosaurus", "Bald Eagle",
+                    -- Target Pet
+                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk",
+                    -- Steal
+                    "Raccoon"
+                },
+                ["c"] = { -- Rainbow
+                    -- Mutation Type
+                    "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus",
+                    -- Fruits
+                    "Moon Cat", "Cat", "Orange Tabby", "Pig", "Cow", "Sea Otter", "Turtle", "Caterpillar", "Praying Mantis", "Giant Ant", "Red Giant Ant", "Triceratops", "Raptor", "Blood Hedgehog",
+                    -- Eggs
+                    "Blood Kiwi", "Ostrich", "Brontosaurus", "Bald Eagle",
+                    -- Target Pet
+                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk",
+                    -- Steal
+                    "Raccoon"
+                },
+                ["e"] = { -- Windy
+                    -- Mutation Type
+                    "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus",
+                },
+                ["f"] = { -- Frozen
+                    -- Mutation Type
+                    "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus",
+                },
+                ["i"] = { -- Mega
+                    -- Mutation Type
+                    "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus",
+                    -- Fruits
+                    "Moon Cat", "Cat", "Orange Tabby", "Pig", "Cow", "Sea Otter", "Turtle", "Caterpillar", "Praying Mantis", "Giant Ant", "Red Giant Ant", "Triceratops", "Raptor", "Blood Hedgehog",
+                    -- Eggs
+                    "Blood Kiwi", "Ostrich", "Brontosaurus", "Bald Eagle",
+                    -- Target Pet
+                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk",
+                    -- Steal
+                    "Raccoon"
+                },
+                ["n"] = { -- Ascended
+                    "ALL"
+                },
+            }
         }
     }
 }
