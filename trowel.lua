@@ -39,8 +39,10 @@ end
 
 local getCarrots()
     local pos = {}
-    for _, plant in ipairs(getMyFarm().Important.Plants_Physical:GetChildren()) do
+    local farm = getMyFarm()
+    for _, plant in ipairs(farm.Important.Plants_Physical:GetChildren()) do
         if plant.Name == "Carrot" then
+            print(plant.Name)
             table.insert(pos, plant:GetPivot().Position)
         end
     end
@@ -53,6 +55,7 @@ local function pickupPlants(trowel, plantName)
     local farm = getMyFarm()
     for _, plant in ipairs(farm.Important.Plants_Physical:GetChildren()) do
         if plant.Name == plantName then
+            print("pickup")
             trowelRemote:InvokeServer("Pickup", trowel, plant)
             task.wait(0.1)
             table.insert(plants, plant)
@@ -78,6 +81,7 @@ local function placePlants(trowel, plants, position)
     local cf = CFrame.new(position) * (baseCF - baseCF.Position)
 
     for _, plant in ipairs(plants) do
+        print("Place")
         trowelRemote:InvokeServer("Place", trowel, plant, cf)
     end
 end
@@ -101,6 +105,7 @@ local targetPlants = {
 }
 
 local trowel = getToolById("{3efc866b-02b3-4450-9258-2a8b30571367}")
+print("Trowel : ", trowel.Name)
 Hum:EquipTool(trowel)
 task.wait(1)
 
