@@ -1,4 +1,4 @@
-local DataService = require(game:GetService("ReplicatedStorage").Modules.DataService)
+local DataService = require(game:GetService("ReplicatedStorage"):WaitForChild("Modules").DataService)
 
 -- Auto Buy Stock
 task.spawn(function()
