@@ -1,4 +1,3 @@
-local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local RS = game:GetService("ReplicatedStorage")
 local Player = Players.LocalPlayer
@@ -7,10 +6,7 @@ local Hum = Character:WaitForChild("Humanoid")
 local HRP = Character:WaitForChild("HumanoidRootPart")
 
 local DataService = require(RS.Modules.DataService)
-local removeRemote = RS.GameEvents.Remove_Item
 local trowelRemote = RS.GameEvents.TrowelRemote
-local equipPetRemote = RS.GameEvents.PetsService
-local sprinklerRemote = RS.GameEvents.SprinklerService
 
 local function getMyFarm()
     for _, farm in ipairs(workspace.Farm:GetChildren()) do
@@ -43,7 +39,7 @@ end
 
 local getCarrots()
     local pos = {}
-    for _, plant in ipairs(farm.Important.Plants_Physical:GetChildren()) do
+    for _, plant in ipairs(getMyFarm().Important.Plants_Physical:GetChildren()) do
         if plant.Name == "Carrot" then
             table.insert(pos, plant:GetPivot().Position)
         end
