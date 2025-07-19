@@ -44,6 +44,8 @@ local getCarrots()
             table.insert(pos, plant:GetPivot().Position)
         end
     end
+
+    return pos
 end
 
 local function pickupPlants(trowel, plantName)
