@@ -338,14 +338,14 @@ RunService.Heartbeat:Connect(function(dt)
         step = 1
         stepInProgress = false
 
-    elseif step == 1 and elapsed >= 140 and not stepInProgress then
+    elseif step == 1 and elapsed >= 137 and not stepInProgress then
         stepInProgress = true
         print("STEP 1: Equip Moon Cat")
         equipPets(backpack.pets["Moon Cat"], mooncatCount)
         step = 2
         stepInProgress = false
 
-    elseif step == 2 and elapsed >= 180 and not stepInProgress then
+    elseif step == 2 and elapsed >= 177 and not stepInProgress then
         stepInProgress = true
         print("STEP 2: Equip Sprinkler")
         equipSprinklers(backpack.sprinklers, targetPlants)
@@ -353,7 +353,7 @@ RunService.Heartbeat:Connect(function(dt)
         step = 3
         stepInProgress = false
 
-    elseif step == 3 and elapsed >= 200 and not stepInProgress then
+    elseif step == 3 and elapsed >= 197 and not stepInProgress then
         stepInProgress = true
         print("STEP 3: Destroy Buah Kurang Berat")
         destroyUnderweightFruits(targetPlants)
@@ -361,14 +361,14 @@ RunService.Heartbeat:Connect(function(dt)
         step = 4
         stepInProgress = false
 
-    elseif step == 4 and elapsed >= 205 and not stepInProgress then
+    elseif step == 4 and elapsed >= 202 and not stepInProgress then
         stepInProgress = true
         print("STEP 4: Pickup Tanaman")
         currentPlants = pickupAllTargetPlants(backpack.trowel, targetPlants)
         step = 5
         stepInProgress = false
 
-    elseif step == 5 and elapsed >= 211 and not stepInProgress then
+    elseif step == 5 and elapsed >= 209 and not stepInProgress then
         stepInProgress = true
         print("STEP 5: Tanam di Posisi Terbaik")
         local bestPos = getBestPlantingSpot()
