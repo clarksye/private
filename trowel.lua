@@ -8,6 +8,8 @@ local HRP = Character:WaitForChild("HumanoidRootPart")
 local DataService = require(RS.Modules.DataService)
 local trowelRemote = RS.GameEvents.TrowelRemote
 
+print("start")
+
 local function getMyFarm()
     for _, farm in ipairs(workspace.Farm:GetChildren()) do
         local sign = farm:FindFirstChild("Sign")
