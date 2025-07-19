@@ -98,15 +98,24 @@ local function getBestPlantingSpot()
 end
 
 local function pickupPlants(trowel, plantName)
-    local plants = {}
     local farm = getMyFarm()
+    local plants, threads = {}, {}
+
     for _, plant in ipairs(farm.Important.Plants_Physical:GetChildren()) do
         if plant.Name == plantName then
-            trowelRemote:InvokeServer("Pickup", trowel, plant)
-            task.wait(0.1)
+            local co = coroutine.create(function()
+                trowelRemote:InvokeServer("Pickup", trowel, plant)
+            end)
+            coroutine.resume(co)
             table.insert(plants, plant)
+            table.insert(threads, co)
         end
     end
+
+    for _, co in ipairs(threads) do
+        while coroutine.status(co) ~= "dead" do task.wait() end
+    end
+
     return plants
 end
 
@@ -122,12 +131,20 @@ local function pickupAllTargetPlants(trowel, plantTable)
 end
 
 local function placePlants(trowel, plants, position)
-    local farm = getMyFarm()
-    local baseCF = farm.Important.Plant_Locations.Can_Plant.CFrame
+    local baseCF = getMyFarm().Important.Plant_Locations.Can_Plant.CFrame
     local cf = CFrame.new(position) * (baseCF - baseCF.Position)
+    local threads = {}
 
     for _, plant in ipairs(plants) do
-        trowelRemote:InvokeServer("Place", trowel, plant, cf)
+        local co = coroutine.create(function()
+            trowelRemote:InvokeServer("Place", trowel, plant, cf)
+        end)
+        coroutine.resume(co)
+        table.insert(threads, co)
+    end
+
+    for _, co in ipairs(threads) do
+        while coroutine.status(co) ~= "dead" do task.wait() end
     end
 end
 
