@@ -1,3 +1,4 @@
+print("init")
 local Players = game:GetService("Players")
 local RS = game:GetService("ReplicatedStorage")
 local Player = Players.LocalPlayer
