@@ -254,7 +254,7 @@ end)
 -- === Config
 local targetPlants = {
     ["Candy Blossom"] = {
-        ["min"] = 100
+        ["min"] = 150
     },
     ["Moon Blossom"] = {
         ["min"] = 50
