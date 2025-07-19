@@ -1,4 +1,3 @@
-print("init")
 local Players = game:GetService("Players")
 local RS = game:GetService("ReplicatedStorage")
 local Player = Players.LocalPlayer
@@ -8,8 +7,6 @@ local HRP = Character:WaitForChild("HumanoidRootPart")
 
 local DataService = require(RS.Modules.DataService)
 local trowelRemote = RS.GameEvents.TrowelRemote
-
-print("start")
 
 local function getMyFarm()
     for _, farm in ipairs(workspace.Farm:GetChildren()) do
@@ -40,7 +37,7 @@ local function getToolById(id)
     end
 end
 
-local getCarrots()
+local function getCarrots()
     local pos = {}
     local farm = getMyFarm()
     for _, plant in ipairs(farm.Important.Plants_Physical:GetChildren()) do
