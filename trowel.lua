@@ -104,7 +104,7 @@ local targetPlants = {
     }
 }
 
-local trowel = getToolById("{3efc866b-02b3-4450-9258-2a8b30571367}")
+local trowel = getToolById("{59548424-37b8-4746-8bd0-8f6d646b2b3e}")
 print("Trowel : ", trowel.Name)
 Hum:EquipTool(trowel)
 task.wait(1)
