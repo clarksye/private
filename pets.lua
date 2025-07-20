@@ -34,7 +34,7 @@ getgenv().Config = {
                 -- Eggs
                 "Blood Kiwi", "Ostrich", "Brontosaurus", "Bald Eagle",
                 -- Target Pet
-                "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk", "Mimic Octopus",
+                "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk", "Mimic Octopus", "Nihonzaru",
                 -- Steal
                 "Raccoon", "Kitsune",
                 -- Unknown
@@ -49,7 +49,7 @@ getgenv().Config = {
                     -- Eggs
                     "Blood Kiwi", "Ostrich", "Brontosaurus", "Bald Eagle",
                     -- Target Pet
-                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk", "Mimic Octopus",
+                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk", "Mimic Octopus", "Nihonzaru",
                     -- Steal
                     "Raccoon", "Kitsune",
                     -- Unknown
@@ -63,7 +63,7 @@ getgenv().Config = {
                     -- Eggs
                     "Blood Kiwi", "Ostrich", "Brontosaurus", "Bald Eagle",
                     -- Target Pet
-                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk", "Mimic Octopus",
+                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk", "Mimic Octopus", "Nihonzaru",
                     -- Steal
                     "Raccoon", "Kitsune",
                     -- Unknown
@@ -77,7 +77,7 @@ getgenv().Config = {
                     -- Eggs
                     "Blood Kiwi", "Ostrich", "Brontosaurus", "Bald Eagle",
                     -- Target Pet
-                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk", "Mimic Octopus",
+                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk", "Mimic Octopus", "Nihonzaru",
                     -- Steal
                     "Raccoon", "Kitsune",
                     -- Unknown
