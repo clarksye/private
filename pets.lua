@@ -28,15 +28,17 @@ getgenv().Config = {
         ["Keep"] = { -- List pet yang tidak ingin di jual
             ["Type"] = {
                 -- Mutation Type
-                "Butterfly", "Dragonfly", "Disco Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus",
+                "Butterfly", "Dragonfly", "Disco Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus", "Tanchozuru",
                 -- Fruits
                 "Moon Cat", "Blood Hedgehog", "Toucan",
                 -- Eggs
                 "Blood Kiwi", "Ostrich", "Brontosaurus", "Bald Eagle",
                 -- Target Pet
-                "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk",
+                "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk", "Mimic Octopus",
                 -- Steal
-                "Raccoon"
+                "Raccoon", "Kitsune",
+                -- Unknown
+                "Kappa"
             },
             ["Mutation"] = {
                 ["a"] = { -- Shocked
@@ -54,36 +56,40 @@ getgenv().Config = {
                     "Kappa"
                 },
                 ["b"] = { -- Golden
-                    -- Mutation Type
-                    "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus",
+                     -- Mutation Type
+                    "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus", "Tanchozuru",
                     -- Fruits
                     "Moon Cat", "Cat", "Orange Tabby", "Pig", "Cow", "Sea Otter", "Turtle", "Caterpillar", "Praying Mantis", "Giant Ant", "Red Giant Ant", "Triceratops", "Raptor", "Blood Hedgehog", "Toucan",
                     -- Eggs
                     "Blood Kiwi", "Ostrich", "Brontosaurus", "Bald Eagle",
                     -- Target Pet
-                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk",
+                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk", "Mimic Octopus",
                     -- Steal
-                    "Raccoon"
+                    "Raccoon", "Kitsune",
+                    -- Unknown
+                    "Kappa"
                 },
                 ["c"] = { -- Rainbow
                     -- Mutation Type
-                    "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus",
+                    "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus", "Tanchozuru",
                     -- Fruits
                     "Moon Cat", "Cat", "Orange Tabby", "Pig", "Cow", "Sea Otter", "Turtle", "Caterpillar", "Praying Mantis", "Giant Ant", "Red Giant Ant", "Triceratops", "Raptor", "Blood Hedgehog", "Toucan",
                     -- Eggs
                     "Blood Kiwi", "Ostrich", "Brontosaurus", "Bald Eagle",
                     -- Target Pet
-                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk",
+                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk", "Mimic Octopus",
                     -- Steal
-                    "Raccoon"
+                    "Raccoon", "Kitsune",
+                    -- Unknown
+                    "Kappa"
                 },
                 ["e"] = { -- Windy
                     -- Mutation Type
-                    "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus",
+                     "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus", "Tanchozuru",
                 },
                 ["f"] = { -- Frozen
                     -- Mutation Type
-                    "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus",
+                     "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus", "Tanchozuru",
                 },
                 ["i"] = { -- Mega
                     "ALL"
