@@ -2,7 +2,7 @@ getgenv().Config = {
     ["Place Eggs"] = {
         ["Enabled"] = true,
         ["Order By"] = {
-            "Common Egg", "Common Summer Egg", "Uncommon Egg", "Rare Egg", "Rare Summer Egg", "Legendary Egg", "Night Egg", "Bee Egg", "Dinosaur Egg", "Oasis Egg", "Primal Egg", "Mythical Egg", "Paradise Egg", "Bug Egg"
+            "Zen Egg", "Common Egg", "Common Summer Egg", "Uncommon Egg", "Rare Egg", "Rare Summer Egg", "Legendary Egg", "Night Egg", "Bee Egg", "Dinosaur Egg", "Oasis Egg", "Primal Egg", "Mythical Egg", "Paradise Egg", "Bug Egg"
         },
         ["Item"] = {
             ["Common Egg"] = true,
@@ -14,6 +14,7 @@ getgenv().Config = {
             ["Night Egg"] = true,
             ["Bee Egg"] = true,
             ["Dinosaur Egg"] = true,
+            ["Zen Egg"] = true,
             ["Oasis Egg"] = true,
             ["Primal Egg"] = true,
             ["Mythical Egg"] = true,
@@ -40,15 +41,17 @@ getgenv().Config = {
             ["Mutation"] = {
                 ["a"] = { -- Shocked
                     -- Mutation Type
-                    "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus",
+                    "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus", "Tanchozuru",
                     -- Fruits
                     "Moon Cat", "Cat", "Orange Tabby", "Pig", "Cow", "Sea Otter", "Turtle", "Caterpillar", "Praying Mantis", "Giant Ant", "Red Giant Ant", "Triceratops", "Raptor", "Blood Hedgehog", "Toucan",
                     -- Eggs
                     "Blood Kiwi", "Ostrich", "Brontosaurus", "Bald Eagle",
                     -- Target Pet
-                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk",
+                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk", "Mimic Octopus",
                     -- Steal
-                    "Raccoon"
+                    "Raccoon", "Kitsune",
+                    -- Unknown
+                    "Kappa"
                 },
                 ["b"] = { -- Golden
                     -- Mutation Type
@@ -83,16 +86,7 @@ getgenv().Config = {
                     "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus",
                 },
                 ["i"] = { -- Mega
-                    -- Mutation Type
-                    "Butterfly", "Dragonfly", "Disco Bee", "Bee", "Honey Bee", "Petal Bee", "Queen Bee", "Bear Bee", "Sea Turtle", "Scarlet Macaw", "Hyacinth Macaw", "Pterodactyl", "Polar Bear", "Cooked Owl", "Chicken Zombie", "Fennec Fox", "T-Rex", "Spinosaurus",
-                    -- Fruits
-                    "Moon Cat", "Cat", "Orange Tabby", "Pig", "Cow", "Sea Otter", "Turtle", "Caterpillar", "Praying Mantis", "Giant Ant", "Red Giant Ant", "Triceratops", "Raptor", "Blood Hedgehog", "Toucan",
-                    -- Eggs
-                    "Blood Kiwi", "Ostrich", "Brontosaurus", "Bald Eagle",
-                    -- Target Pet
-                    "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk",
-                    -- Steal
-                    "Raccoon"
+                    "ALL"
                 },
                 ["n"] = { -- Ascended
                     "ALL"
