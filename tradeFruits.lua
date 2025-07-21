@@ -64,9 +64,10 @@ if #fruits > 0 then
     for i = 1, half do
         local fruit = fruits[i]
         Hum:EquipTool(fruit.tool)
-        task.wait(0.5)
+        task.wait(1)
         fireproximityprompt(workspace[targetName].HumanoidRootPart.ProximityPrompt)
 
-        repeat task.wait() until Hum:FindFirstChildOfClass("Tool") ~= fruit.tool
+        repeat task.wait(0.1) until not Character:FindFirstChildOfClass("Tool")
+        print("done ", i)
     end
 end
