@@ -56,7 +56,7 @@ end
 
 -- Teleport to target
 teleport(targetHRP.Position)
-taks.wait(1)
+task.wait(1)
 
 -- Trade half (50%) inventory
 if #fruits > 0 then
