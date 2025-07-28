@@ -32,7 +32,7 @@ end
 
 -- Init
 local data = DataService:GetData()
-local targetName = "Zhufuhe"
+local targetName = "lethanproject"
 local targetPlayer = Players:FindFirstChild(targetName)
 local targetHRP = targetPlayer.Character.HumanoidRootPart
 
