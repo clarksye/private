@@ -1,10 +1,4 @@
 repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer and game.Players.LocalPlayer.Character
--- if getgenv().loaded then return end
-
--- getgenv().Config["Sell Pets"].Level = 30
--- getgenv().Config = {
---     ["Auto Pet"] = true,
--- }
 
 local Task = loadstring(game:HttpGet("https://raw.githubusercontent.com/alienschub/alienhub/refs/heads/main/TaskController.luau"))()
 local State = loadstring(game:HttpGet("https://raw.githubusercontent.com/alienschub/alienhub/refs/heads/main/StateController.luau"))()
@@ -92,29 +86,33 @@ end
 getgenv().loaded = true
 
 -- Backpack
-local s, e = pcall(function()
-    local data = DataService:GetData()
+task.spawn(function()
+    while task.wait(3) do
+        local success, err = pcall(function()
+            local data = DataService:GetData().InventoryData
 
-    local backpack = settings["Game"]["Player"]["Backpack"]
-    backpack.seedPack = {}
-    for uuid, item in pairs(data.InventoryData) do
-        local type = item.ItemType
-        local data = item.ItemData
-        local tool = getItemById(uuid)
+            local backpack = settings["Game"]["Player"]["Backpack"]
+            backpack.seedPack = {}
+            for uuid, item in pairs(data) do
+                local type = item.ItemType
+                local data = item.ItemData
+                local tool = getItemById(uuid)
 
-        if type == "Seed Pack" then
-            table.insert(backpack.seedPack, {
-                tool = tool,
-                uuid = uuid,
-                name = data.Type,
-                amount = data.Uses
-            })
+                if type == "Seed Pack" then
+                    table.insert(backpack.seedPack, {
+                        tool = tool,
+                        uuid = uuid,
+                        name = data.Type,
+                        amount = data.Uses
+                    })
+                end
+            end
+        end)
+        if not success then
+            warn("[Task Error: Backpack]", err)
         end
     end
 end)
-if not s then
-    warn("[Task Error: Backpack]", e)
-end
 
 -- Open Seed Pack
 task.spawn(function()
@@ -130,16 +128,9 @@ task.spawn(function()
 
                         for i = 1, pack.amount do
                             pack.tool:Activate()
-                            
-                            local amount = pack.amount
-                            repeat
-                                task.wait(0.1)
-                                local item = DataService:GetData().InventoryData[pack.uuid]
-                                pack.amount = item and item.ItemData and item.ItemData.Uses or 0
-                            until pack.amount < amount or pack.amount == 0
+                            task.wait(3)
                         end
                     end
-                    
                 end, {})
             end
         end)
