@@ -128,13 +128,14 @@ task.spawn(function()
                         Hum:EquipTool(pack.tool)
                         task.wait(1)
 
+                        local amount = pack.amount
                         for i = 1, pack.amount do
                             pack.tool:Activate()
                             repeat
                                 task.wait(0.1)
                                 local item = DataService:GetData().InventoryData[pack.uuid]
                                 pack.amount = item and item.ItemData and item.ItemData.Uses or 0
-                            until pack.amount < oldAmount or pack.amount == 0
+                            until pack.amount < amount or pack.amount == 0
                         end
                     end
                     
