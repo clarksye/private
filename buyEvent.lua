@@ -8,8 +8,8 @@ task.spawn(function()
             if not data or not data.PetEggStock or not data.GearStock or not data.SeedStock then return end
 
              -- Auto Buy Event
-            if data.eventShopStock and data.eventShopStock.Stocks then
-                for itemName, info in pairs(data.eventShopStock.Stocks) do
+            if data.EventShopStock and data.EventShopStock.Stocks then
+                for itemName, info in pairs(data.EventShopStock.Stocks) do
                     if table.find({"Zen Egg", "Zenflare", "Zen Seed Pack", "Sakura Bush"}, itemName) then
                         if info and info.Stock > 0 then
                             for i = 1, info.Stock do
