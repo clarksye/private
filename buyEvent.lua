@@ -1,4 +1,6 @@
 local DataService = require(game:GetService("ReplicatedStorage"):WaitForChild("Modules").DataService)
+local GameEvents = game:GetService("ReplicatedStorage"):WaitForChild("GameEvents")
+local buyEventShopStockRemote =  GameEvents.BuyEventShopStock
 
 -- Auto Buy Stock
 task.spawn(function()
