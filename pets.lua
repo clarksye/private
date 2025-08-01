@@ -36,7 +36,7 @@ getgenv().Config = {
                 -- Target Pet
                 "Capybara", "Blood Owl", "Cooked Owl", "Owl", "Night Owl", "Moth", "Iguanodon", "Tarantula Hawk", "Mimic Octopus",
                 -- Steal
-                "Raccoon", "Kitsune",
+                "Raccoon", "Kitsune", "Corrupted Kitsune", "Kodama", "Corrupted Kodama"
                 -- Unknown
                 "Kappa"
             },
