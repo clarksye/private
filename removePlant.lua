@@ -6,9 +6,9 @@ for _, farm in ipairs(workspace.Farm:GetChildren()) do
     local sign = farm:FindFirstChild("Sign")
     if sign and sign:GetAttribute("_owner") == Player.Name then
         for _, plant in ipairs(farm.Important.Plants_Physical:GetChildren()) do
-            if not table.find({"Candy Blossom", "Moon Blossom", "Sugar Apple", "Sunflower", "Beanstalk", "Giant Pinecone"}, plant.Name) then
+            if table.find({"Zenflare", "Zen Rocks", "Monoblooma"}, plant.Name) then
                 removeRemote:FireServer(plant:FindFirstChildWhichIsA("BasePart"))
-                task.wait(0.05)
+                task.wait(0.1) 
             end
         end
         break
