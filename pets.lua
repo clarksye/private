@@ -195,8 +195,11 @@ task.spawn(function()
                 task.wait(0.5)
                 
                 petGiftingServiceRemote:FireServer("GivePet", game.Players[targetName])
-                repeat task.wait(0.1) until not Character:FindFirstChildOfClass("Tool")
-                table.remove(pets, i)
+                local startTime = os.clock()
+                repeat
+                    task.wait(0.1)
+                until not Character:FindFirstChildOfClass("Tool") or os.clock() - startTime > 15
+                if os.clock() - startTime < 15 then table.remove(pets, i) end
             end)
         end
     end
