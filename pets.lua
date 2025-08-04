@@ -143,6 +143,11 @@ local function getItemById(id)
     return nil
 end
 
+local function teleport(position)
+    local adjustedPos = position + Vector3.new(0, 0.5, 0)
+    HRP.CFrame = CFrame.new(adjustedPos)
+end
+
 -- Init
 local data = DataService:GetData()
 local target = "MisakiX6Shun"
