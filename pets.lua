@@ -160,7 +160,7 @@ end
 
 -- Init
 local data = DataService:GetData()
-local targets = {"MisakiX6Shun", "TakaoP3Naka"}
+local targets = {"MisakiX6Shun","TakaoP3Naka","NanaR7Sota","AyameV4Rui"}
 
 local pets = {}
 for uuid, pet in pairs(data.PetsData.PetInventory.Data or {}) do
