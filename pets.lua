@@ -146,7 +146,7 @@ end
 local function findValidTarget(targets)
     for _, name in ipairs(targets) do
         local targetModel = workspace:FindFirstChild(name)
-        if targetModel then
+        if targetModel and Player.Name ~= name then
             return name, targetModel
         end
     end
@@ -160,7 +160,7 @@ end
 
 -- Init
 local data = DataService:GetData()
-local targets = {"KenjiT1Yoru", "YoriV9Saki", "NozomiM4Leo", "SoutaP8Yui", "IchiroP6Mio", "ChikaV7Ren", "HarukaY1Nao", "AsahiP1Nene", "MisakiX6Shun", "TakaoP3Naka", "NanaR7Sota", "AyameV4Rui"}
+local targets = {"isekaiC24striker", "KenjiT1Yoru", "YoriV9Saki", "NozomiM4Leo", "SoutaP8Yui", "IchiroP6Mio", "ChikaV7Ren", "HarukaY1Nao", "AsahiP1Nene", "MisakiX6Shun", "TakaoP3Naka", "NanaR7Sota", "AyameV4Rui"}
 
 local pets = {}
 for uuid, pet in pairs(data.PetsData.PetInventory.Data or {}) do
