@@ -190,7 +190,7 @@ task.spawn(function()
         for i = #pets, 1, -1 do
             pcall(function()
                 local pet = pets[i]
-                if pet.name == "Ostrich" then return end
+                if not table.find({"T-Rex", "Corrupted Kitsune", "Kitsune"}, pet.name) then return end
                 if pet.favorite then game.ReplicatedStorage.GameEvents.Favorite_Item:FireServer(pet.tool) end
                 Hum:EquipTool(pet.tool)
                 task.wait(0.5)
@@ -205,6 +205,7 @@ task.spawn(function()
         end
     end
 end)
+
 
 
 
