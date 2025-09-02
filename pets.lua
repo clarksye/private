@@ -204,9 +204,12 @@ task.spawn(function()
                 if os.clock()-t0 < 15 then table.remove(pets, i) end
             end)
         end
+
+        getgenv.required = nil
     end
 end)
 
+-- getgenv().required = {level = 75, to = "targetnickname"}
 
 
 
