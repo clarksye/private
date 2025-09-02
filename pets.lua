@@ -180,32 +180,33 @@ for uuid, pet in pairs(data.PetsData.PetInventory.Data or {}) do
     end
 end
 
--- Auto Place
 task.spawn(function()
-    local targetName, targetModel = findValidTarget(targets)
-    teleport(targetModel:GetPivot().Position)
-    task.wait(1)
+    while task.wait(2) do
+        local req = getgenv().required
+        if not req then continue end
 
-    while task.wait(4) do
         for i = #pets, 1, -1 do
             pcall(function()
                 local pet = pets[i]
-                if table.find({"T-Rex", "Corrupted Kitsune", "Kitsune", "Ostrich"}, pet.name) then return end
-                -- if not table.find({"Corrupted Kitsune"}, pet.name) then return end
-                if pet.favorite then game.ReplicatedStorage.GameEvents.Favorite_Item:FireServer(pet.tool) end
+                if pet.level < req.level then return end
+                local target = game.Players:FindFirstChild(req.to)
+                if not target then return end
+
+                if pet.favorite then
+                    game.ReplicatedStorage.GameEvents.Favorite_Item:FireServer(pet.tool)
+                end
                 Hum:EquipTool(pet.tool)
                 task.wait(0.5)
-                
-                petGiftingServiceRemote:FireServer("GivePet", game.Players[targetName])
-                local startTime = os.clock()
-                repeat
-                    task.wait(0.1)
-                until not Character:FindFirstChildOfClass("Tool") or os.clock() - startTime > 15
-                if os.clock() - startTime < 15 then table.remove(pets, i) end
+                petGiftingServiceRemote:FireServer("GivePet", target)
+
+                local t0 = os.clock()
+                repeat task.wait(0.1) until not Character:FindFirstChildOfClass("Tool") or os.clock()-t0 > 15
+                if os.clock()-t0 < 15 then table.remove(pets, i) end
             end)
         end
     end
 end)
+
 
 
 
