@@ -205,7 +205,7 @@ task.spawn(function()
             end)
         end
 
-        getgenv.required = nil
+        getgenv().required = nil
     end
 end)
 
