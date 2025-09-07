@@ -185,10 +185,21 @@ task.spawn(function()
         local req = getgenv().required
         if not req then continue end
 
+        -- tentukan batas level max
+        local minLevel, maxLevel = req.level, math.huge
+        if req.level == 45 then
+            maxLevel = 59
+        elseif req.level == 60 then
+            maxLevel = 74
+        elseif req.level == 75 then
+            maxLevel = math.huge
+        end
+
         for i = #pets, 1, -1 do
             pcall(function()
                 local pet = pets[i]
-                if pet.level < req.level then return end
+                if pet.level < minLevel or pet.level > maxLevel then return end
+
                 local target = game.Players:FindFirstChild(req.to)
                 if not target then return end
 
